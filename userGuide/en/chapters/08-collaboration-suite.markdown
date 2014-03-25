@@ -22,11 +22,11 @@ how to set up and administer:
 -   Chat
 -   Mail
 
-Let's jump right in and begin by exploring Blogs.
+Let us jump right in and begin by exploring Blogs.
 
-## Expressing Yourself Using Blogs [](id=expressing-yourself-using-blogs-liferay-portal-6-2-user-guide-08-en)
+## You Get a Blog! and You Get a Blog! [](id=expressing-yourself-using-blogs-liferay-portal-6-2-user-guide-08-en)
 
-The word *Blog* is an apostrophe-less contraction of the two words *web* and
+The word **Blog** is an apostrophe-less contraction of the two words *web* and
 *log*. Blogs were first popularized by web sites such as Slashdot
 ([http://slashdot.org](http://slashdot.org)) which have the format of a running
 list of entries to which users could attach comments. Over time, more and more
