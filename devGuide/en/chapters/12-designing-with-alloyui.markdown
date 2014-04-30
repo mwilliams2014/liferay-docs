@@ -46,6 +46,7 @@ AlloyUI project, tutorials, examples, and API documentation, make sure to visit
 chapter by exploring the following topics: 
 
 - A simple AlloyUI example
+- A form validator AlloyUI example
 - Working with the AlloyUI project
 
 To start things off right, let's go over a simple example using AlloyUI.
@@ -186,7 +187,257 @@ Voila! You're using AlloyUI in Liferay!
 
 ![Figure 12.2: Using AlloyUI in your portlet JSPs is a snap. Try using the `aui-char-counter` from this example in your portlet's JSP.](../../images/alloyui-char-counter-in-portlet.png)
 
-Now that you've gotten your feet wet using AlloyUI, let's go over setting up the
+Now that we've gone over using a simple `aui-char-counter` in your portlet, 
+let's move onto something a little more challenging.
+
+## A Form Validator AlloyUI Example
+
+As you have seen after going through our examples, AlloyUI is a very versatile 
+tool; it continues to impress when it comes to form validation. Typically, if 
+you want to validate a form before submitting it, you have to write out a
+complicated function that checks that you have all your T's crossed and I's 
+dotted. What AlloyUI has done is remove that step from your workflow! Excited to 
+find out how? Let's go over how it works.
+
+### Using the AUI-Form-Validator in a Portlet
+
+The process of placing the `aui-form-validator` in a portlet is pretty similar 
+to the examples we have gone over so far. To get started, create a *view.jsp* 
+file in your `portlet-name/docroot/` directory and insert the following code:
+
+        <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+        <%@ taglib prefix="aui" uri="http://liferay.com/tld/aui" %>
+   
+        <aui:script>
+        AUI().use(
+          'aui-form-validator',
+          function(Y) {
+           new Y.FormValidator(
+             {
+               boundingBox: '#myForm',
+               showAllMessages: true,
+               rules: {
+                 firstname: {
+                   required: true,
+                   rangeLength: [2,20],
+                   alpha: true
+                 },
+                 email: {
+                   email: true,
+                   required: true
+                 },
+                 age: {
+                   required: true,
+                   digits: true,
+                   age: true,
+                   max: [120]
+                 }
+                }
+             }
+           )
+         }
+       );
+        </aui:script>
+
+        <form id="myForm">
+          <div class="control-group">
+            <label class="control-label" for="firstname">First Name:</label>
+            <div class="controls">
+              <input name="firstname" id="firstname" type="text">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="email">E-mail:</label>
+            <div class="controls">
+              <input name="email" id="email" type="text">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="age">Age:</label>
+            <div class="controls">
+              <input name="age" id="age" type="text">
+            </div>
+          </div>
+  
+          <input class="btn btn-info" type="submit" value="Submit">
+          <input class="btn btn-primary" type="reset" value="Reset">
+  
+         </form>
+         
+That's all there is to it! Unlike the `aui-carousel`, the `aui-form-validator` 
+does not require a CSS file in order to view it. Simply drop the code you have 
+seen above in your `view.jsp` and you have a working form validator!
+
+Let's take a look at what the code is doing for us. We start off by referencing 
+the `aui` and `portlet` taglibs, since they will be used in the portlet. Next, 
+the `AUI().use()` function is called and passed `aui-form-validator` as a 
+parameter to instantiate it for the portlet. 
+
+        <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+        <%@ taglib prefix="aui" uri="http://liferay.com/tld/aui" %>
+   
+        <aui:script>
+        AUI().use(
+          'aui-form-validator',
+          function(Y) {
+           new Y.FormValidator(
+             {
+
+The attributes and rules for the form validator are then setup. The form 
+validator is configured to show all validation messages at once, rather than 
+one at a time. The `boundingBox` is set to the div with the ID `myForm` and 
+rules are created for the `firstname`, `email` and `age` input fields. The 
+`firstname` input field is given a `required` rule, alerting the user if they 
+leave the field empty; it is given a range of 2 to 20 characters and a rule to 
+use only alpha characters. The `email` input field is configured as an email and 
+marked as a required field. Finally, the `age` input field is configured as a 
+required field to use only digits and given a generous maximum value of 120 
+years old.
+
+        boundingBox: '#myForm',
+        showAllMessages: true,
+        rules: {
+          firstname: {
+            required: true,
+            rangeLength: [2,20],
+            alpha: true
+          },
+          email: {
+            email: true,
+            required: true
+          },
+          age: {
+            required: true,
+            digits: true,
+            age: true,
+            max: [120]
+          }
+
+---
+
+ ![Note](../../images/tip.png) **Note:** For a full list of the attributes that
+ can be modified in the `view.jsp` of your form validator portlet, as well as 
+ further documentation please visit 
+ <http://alloyui.com/api/classes/A.FormValidator.html>
+
+---          
+          
+Just below that, the html is layed out for the form. For the form validator to 
+work properly, the DOM tree has to be setup with the correct classes and tags. 
+Here is an example of what the html for a form input field looks like:
+
+        <div class="control-group">
+          <label class="control-label" for="[name]">[label-name]</label>
+          <div class="controls">
+            <input name="[name]" id="[id]" type="[type]">
+          </div>
+        </div>
+
+What really makes the form validator great is its ability to validate your forms 
+with ease; for added icing on the cake, you can even write custom message 
+alerts with the `fieldStrings` attribute. Next we'll explore the `fieldStrings` 
+and `rules` attributes in greater depth.
+
+### AUI-Form-Validator Customization
+
+Both the `boundingBox` and `showAllMessages` attributes are fairly simple to
+use, but the `fieldStrings` and `rules` attributes require a few more steps to
+setup. Let's take a look at the `rules` attribute a little closer first.
+
+Here is a list of the available rules:
+
+**acceptFiles:** List of filetypes accepted. (Default:empty)
+
+**alpha:** Evaluates whether or not a field contains only alpha characters.
+(Default:none) 
+
+**alphanum:** A boolean value that determines whether a field is suppose to
+contain only alphanumeric characters and evaluates it accordingly.
+(Default:false) 
+
+**date:** A boolean value that determines whether a field is a Date and
+evaluates it accordingly. (Default:false)
+
+**digits:** A boolean value that determines whether a field is suppose to 
+contain only digits and evaluates it accordingly. (Default:false)
+
+**email:** A boolean value that determines whether a field is a date and 
+evaluates it accordingly. (Default:false)
+
+**equalTo:** Evaluates whether a field is equal to the field written.
+(Default:empty)
+
+**iri:** A boolean value that determines whether a field is a IRI and evaluates
+it accordingly (Default:false) 
+
+**max:** Evaluates whether the integer value is less than or equal to the value
+written. (Default:none)
+
+**maxLength:** Evaluates whether a field is over the maximum length of
+characters specified. (Default:empty)
+
+**min:** Evaluates whether the integer value is greater than or equal to the 
+value written. (Default:none)
+
+**minLength:** Evaluates whether a field is under the minimum length of
+characters specified. (Default:empty)
+
+**number:** A Boolean value that determines whether a field is suppose to
+contain only numeric values and evaluates it accordingly. (Default:false)
+
+**range:** Evaluates whether the integer value lies within the range given.
+(Default:none)
+
+**rangeLength:** Evaluates whether a field lies within the range of characters
+written. (Default:empty)
+
+**required:** Evaluates whether the field is required before submission.
+(Default:false)
+
+**url:** A boolean value that determines whether a field is a URL and evaluates 
+it accordingly. (Default:false)
+
+To use a rule, you simply have to add it to the `rules` attribute and give it
+a proper value. Here is an example of a `firstname` field with a few rules 
+applied to it:
+
+        rules: {
+          firstname: { /*field name taken from input tag's name value*/
+            required: true, /*this field is required*/
+            rangeLength: [2,20], /*this field can contain 2 to 20 characters*/
+            alpha: true /*this field can only contain alpha characters*/
+          }
+        }
+                
+Once you have mastered the `rules` attribute, the `fieldStrings` attribute is an 
+easy transition; essentially it's a modification of the `rules` attribute. Let's 
+say you had the `firstname` field above and you wanted to replace the default 
+"this feild is required" message for the `required` rule and the default "Please 
+enter a value between 2 and 20 characters long" message for the `rangeLength` 
+rule; here's how the code may look in that situation:
+
+        fieldStrings: {
+          firstname: {
+            required: "The Force is strong with you, but we still need a name.",
+            rangeLength: "2 to 20 characters Padawan."    
+          }
+        }
+
+Redeploy your portlet and break the `required` and `rangeLength` rules to see
+your custom messages. With the addition of the `fieldStrings` attribute, here is 
+what the `firstname` field for your portlet should look like, after breaking the 
+rules:
+
+![Figure 12.5: Here is a look at the `aui-form-validator` in a portlet with the `fieldStrings` attribute configured and the `showAllMessages` attribute set to true.](../../images/alloyui-form-validator-in-a-portlet.png)
+
+The rule to remember, no pun intended, when it comes to the `fieldStrings` 
+attribute is that you can write a custom message for any rule that has been 
+setup in the `rules` attribute.
+
+As you can see, the `aui-form-validator` is a no-brainer when it comes to form
+validation! 
+
+Now that you've gotten your feet wet using AlloyUI, let's go over setting up the 
 AlloyUI project for creating your own AlloyUI components. 
 
 ## Working with the AlloyUI project [](id=working-with-the-alloyui-project-liferay-portal-6-2-dev-guide-en)
@@ -211,8 +462,8 @@ components locally.
 ### Working with an AlloyUI Project Release Zip File [](id=using-downloaded-alloyui-zip-liferay-portal-6-2-dev-guide-11-en)
 
 You can download any AlloyUI version as a `.zip` file from
-[https://github.com/liferay/alloy-ui/releases](https://github.com/liferay/alloy-ui/releases). The file contains the following files
-and folders:
+[https://github.com/liferay/alloy-ui/releases](https://github.com/liferay/alloy-ui/releases). 
+The file contains the following files and folders:
 
 - `alloy-[version]/` - AlloyUI project root directory 
     - `build/` - Contains the AlloyUI and YUI modules used in Liferay 
@@ -245,7 +496,8 @@ similar to this:
           <meta charset="utf-8">
           <title>Example</title>
 
-          <script src="/home/joe.bloggs/alloy-2.0.0/build/aui/aui-min.js"></script>
+          <script src="/home/joe.bloggs/alloy-2.0.0/build/aui/aui-min.js">
+          </script>
           <link href="/home/joe.bloggs/alloy-2.0.0/build/aui-css/css/bootstrap.min.css"
           rel="stylesheet"></link>
         </head>
@@ -272,7 +524,7 @@ similar to this:
 
 The figure below shows what your web page should look like.
 
-![Figure 12.3: Using AlloyUI on any HTML page is easy. Try out AlloyUI's character counter on your own page using the code above.](../../images/alloyui-char-counter-in-html-file.png)
+![Figure 12.6: Using AlloyUI on any HTML page is easy. Try out AlloyUI's character counter on your own page using the code above.](../../images/alloyui-char-counter-in-html-file.png)
 
 Great! Now you know how to use a local set of the AlloyUI tag libraries. Next,
 we'll show you how to work with the AlloyUI source project. You'll learn how to
