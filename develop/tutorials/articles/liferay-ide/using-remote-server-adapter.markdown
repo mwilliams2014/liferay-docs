@@ -30,7 +30,7 @@ normal mechanisms to apply plugin updates and fixes.
 To start deploying projects to a remote server, you'll need to have the 
 following resources installed on your local development machine:
 
-- [Liferay IDE](http://www.liferay.com/downloads/liferay-projects/liferay-ide)or [Liferay Developer Studio](http://www.liferay.com/group/customer/products/developer-studio/1.6).
+- [Liferay IDE](http://www.liferay.com/downloads/liferay-projects/liferay-ide) or [Liferay Developer Studio](http://www.liferay.com/group/customer/products/developer-studio/1.6).
 - [Liferay Portal CE or EE](http://www.liferay.com/downloads/liferay-portal/available-releases). 
 
 You'll need to download [Liferay Portal CE or EE](http://www.liferay.com/downloads/liferay-portal/available-releases)
