@@ -237,14 +237,6 @@ the latest information on the AlloyUI framework.
 
 ## Next Steps
 
-Now that you know how to use AlloyUI components to build snazzy UIs, here are
-some other AlloyUI tutorials that may be of interest:
-
-You can learn more about AlloyUI 2.0 taglib and Bootstrap migration here:
-
-[Migration](https://www-ldn.liferay.com/develop/tutorials/-/knowledge_base/alloyui-2-0-taglib-and-bootstrap-migration-lp-6-2-develop-tutorial)
-
-You can checkout the AlloyUI carousel module here:
+[Alloy and Bootstrap Migration](https://www-ldn.liferay.com/develop/tutorials/-/knowledge_base/alloyui-2-0-taglib-and-bootstrap-migration-lp-6-2-develop-tutorial)
 <!-- URL needs changed to proper URL once it is added to LDN-->
-<!--[Carousel](https://www-ldn.liferay.com/develop/tutorials/-/knowledge_base/using-alloyui-carousel-in-a-portlet)-->
-
+<!--[Using the AlloyUI Carousel Module](https://www-ldn.liferay.com/develop/tutorials/-/knowledge_base/using-alloyui-carousel-in-a-portlet)-->
