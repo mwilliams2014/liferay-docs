@@ -1,6 +1,9 @@
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 <%@ taglib uri="http://alloy.liferay.com/tld/aui" prefix="aui" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
+<%@ page import="java.lang.Object" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.liferay.docs.guestbook.model.Entry" %>
 
 
 <portlet:defineObjects />
@@ -21,5 +24,10 @@
 
 
 </script>
-<p id="madlib"><%= request.getParameter("name")%></p><br>
-<p><%= request.getParameter("message")%></p>
+<%
+List<Entry> entryList = (List<Entry>) request.getAttribute("entries");
+int lastIndex = entryList.size() - 1;
+%>
+<p>Attribute entries is null: <%= entryList == null %></p>
+<p>Name: <%= entryList.get(lastIndex).getName() %></p>
+<p>Place: <%= entryList.get(lastIndex).getPlace() %></p>
