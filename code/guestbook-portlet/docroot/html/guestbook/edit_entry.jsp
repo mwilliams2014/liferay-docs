@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 <%@ taglib uri="http://alloy.liferay.com/tld/aui" prefix="aui" %>
-<%@ include file="../../js/main.js" %>
+
 <portlet:defineObjects />
 
 <portlet:renderURL var="viewURL">
@@ -11,7 +11,7 @@
 
 <portlet:actionURL name="addEntry" var="addEntryURL"></portlet:actionURL>
 
-<aui:form action="<%= addEntryURL %>" name="<portlet:namespace />fm">
+<aui:form action="<%= addEntryURL %>" name="<portlet:namespace/>fm" method="post">
 
         <aui:fieldset>
 

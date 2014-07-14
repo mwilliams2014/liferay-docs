@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 <%@ taglib uri="http://alloy.liferay.com/tld/aui" prefix="aui" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
+
+
 <portlet:defineObjects />
 
 <jsp:useBean id="entries" class="java.util.ArrayList"  scope="request"/>
@@ -19,4 +21,5 @@
 
 
 </script>
-<p id="madlib"></p>
+<p id="madlib"><%= request.getParameter("name")%></p><br>
+<p><%= request.getParameter("message")%></p>
