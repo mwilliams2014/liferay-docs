@@ -2,7 +2,7 @@
 
 This tutorial covers how to restore entries from the Recycle Bin in your apps. 
 To learn how to set up the framework for using the Recyle Bin in your apps, 
-refer to the [moving-entries-to-the-recycle-bin](https://dev.liferay.com/develop/tutorials/-/knowledge_base/moving-entries-to-the-recycle-bin-lp-6-2-develop-tutorial) 
+refer to the [Moving Entries to the Recycle Bin](https://dev.liferay.com/develop/tutorials/-/knowledge_base/moving-entries-to-the-recycle-bin-lp-6-2-develop-tutorial) 
 tutorial. Now that you're able to move entries *to* the Recycle Bin, you can 
 make sure your app can restore entries *from* the Recycle Bin. Besides, what's 
 the point of having a Recycle Bin if you can't restore its entries?
