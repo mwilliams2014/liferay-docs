@@ -1,4 +1,4 @@
-# Resolving Conflicts
+# Resolving Recycling Conflicts
 
 The Conflict Resolution framework helps Liferay users identify and solve
 conflicts in the Recycle Bin. The most common conflict for the Recycle Bin is
