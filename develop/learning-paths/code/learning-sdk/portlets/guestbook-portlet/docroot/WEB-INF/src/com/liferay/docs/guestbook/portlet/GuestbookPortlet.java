@@ -87,10 +87,9 @@ public class GuestbookPortlet extends MVCPortlet {
 		
 		try {
 
-			ServiceContext serviceContext = ServiceContextFactory.getInstance(
-				Entry.class.getName(), request);
-
-			EntryLocalServiceUtil.deleteEntry(entryId, serviceContext);
+			Entry entry = EntryLocalServiceUtil.getEntry(entryId);
+			
+			entry = EntryLocalServiceUtil.deleteEntry(entry);
 			
 		} catch (Exception e) {
 			
