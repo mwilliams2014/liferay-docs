@@ -20,8 +20,10 @@
 
 <portlet:defineObjects />
 
-<liferay-ui:success key="success" message="Greeting saved successfully!"
+<liferay-ui:success key="success" message="greeting-saved"
 />
+
+<liferay-ui:error key="error" message="sorry-error" />
 
 <% PortletPreferences prefs = renderRequest.getPreferences(); String
 greeting = (String)prefs.getValue(

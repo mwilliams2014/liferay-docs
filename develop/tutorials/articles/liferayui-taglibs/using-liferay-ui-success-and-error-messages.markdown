@@ -17,16 +17,16 @@ can look like in your portlet.
 
 ![Figure 1: Giving feedback on a user's success is easy using the `liferay-ui:success` tag and the `SessionMessage` helper class.](../../images/liferay-ui-success.png)
 
-In this tutorial, we'll show you how to use session messages and the
+In this tutorial, you'll learn how to use session messages and the
 `liferay-ui:success` and `liferay-ui:error` tags to provide user feedback in a
 sample portlet called the My Greeting portlet. Are you ready to give it a try?
-Let's do it. 
+Go ahead and get started. 
 
 ## Confirming Success with liferay-ui:success [](id=confirming-success-with-liferay-uisuccess)
 
 It's good to let a user know when a portlet was able to execute his action
-successfully. So, we'll demonstrate adding a success message for an action
-successfully completed in My Greeting portlet. 
+successfully. So, you'll add a success message for an action successfully 
+completed in My Greeting portlet. 
 
 1.  As a starting point, use the My Greeting portlet which is available in the
 <https://github.com/liferay/liferay-docs> 
@@ -41,24 +41,23 @@ add the attribute value `"success"` to the `actionRequest` via the
 `SessionMessages` helper class. You can add it at the end of the `processAction`
 method, so that the method looks like this: 
 
-    ```
-    @Override
-    public void processAction(
-        ActionRequest actionRequest, ActionResponse actionResponse)
-        throws IOException, PortletException {
+        @Override
+        public void processAction(
+            ActionRequest actionRequest, ActionResponse actionResponse)
+            throws IOException, PortletException {
 
-        PortletPreferences prefs = actionRequest.getPreferences();
-        String greeting = actionRequest.getParameter("greeting");
+            PortletPreferences prefs = actionRequest.getPreferences();
+            String greeting = actionRequest.getParameter("greeting");
 
-        if (greeting != null) {
-            prefs.setValue("greeting", greeting);
-            prefs.store();
+            if (greeting != null) {
+                prefs.setValue("greeting", greeting);
+                prefs.store();
+            }
+
+            SessionMessages.add(actionRequest, "success");
+            super.processAction(actionRequest, actionResponse);
         }
 
-        SessionMessages.add(actionRequest, "success");
-        super.processAction(actionRequest, actionResponse);
-    }
-    ```
     Make sure to import the `com.liferay.portal.kernel.servlet.SessionMessages` 
     class. 
 
@@ -66,28 +65,25 @@ method, so that the method looks like this:
 user and add the `liferay-ui` taglib declaration, so that the JSP looks like
 this: 
 
-    ```
-    <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %> 
-    <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %> 
-    <%@ page import="javax.portlet.PortletPreferences" %>
+        <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %> 
+        <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %> 
+        <%@ page import="javax.portlet.PortletPreferences" %>
 
-    <portlet:defineObjects />
+        <portlet:defineObjects />
 
-    <liferay-ui:success key="success" message="Greeting saved successfully!"
-    />
+        <liferay-ui:success key="success" message="greeting-saved successfully!"/>
 
-    <% PortletPreferences prefs = renderRequest.getPreferences(); String
-    greeting = (String)prefs.getValue(
-        "greeting", "Hello! Welcome to our portal."); %>
+        <% PortletPreferences prefs = renderRequest.getPreferences(); String
+        greeting = (String)prefs.getValue(
+            "greeting", "Hello! Welcome to our portal."); %>
 
-    <p><%= greeting %></p>
+        <p><%= greeting %></p>
 
-    <portlet:renderURL var="editGreetingURL">
-        <portlet:param name="mvcPath" value="/edit.jsp" />
-    </portlet:renderURL>
+        <portlet:renderURL var="editGreetingURL">
+            <portlet:param name="mvcPath" value="/edit.jsp" />
+        </portlet:renderURL>
 
-    <p><a href="<%= editGreetingURL %>">Edit greeting</a></p>
-    ```
+        <p><a href="<%= editGreetingURL %>">Edit greeting</a></p>
 
 4.  Redeploy the portlet, go to the edit screen, edit the
 greeting, and save it. Similar to the figure below, the portlet shows your
@@ -95,8 +91,52 @@ success message and your new greeting.
 
     ![Figure 2: The `liferay-ui:success` tag provides the means to confirm the success of portlet actions.](../../images/success-saving-greeting.png)
 
-That was easy enough! Now that we've provided the user some positive feedback,
-let's provide a way to inform him when his action failed to complete
+    The message displayed is derived from the `key` attribute of the tag. At the
+    moment you're supplying the message for the user. However, the best practice 
+    is to supply the message using a language key. You'll take care of this now.
+
+### Creating a Language Key Hook for the Success Message
+
+Follow the steps below to create the language key hook:
+    
+1.  Goto *File*&rarr;*New*&rarr;*Liferay Plugin Project*.
+
+2.  Set the *Project name* as `my-greeting-language-hook` and *Display name* as
+`My Greeting Language Hook`.
+
+3. Set the proper SDK and runtime, select *Hook* for the *Plugin type*, and
+click *Finish*.
+
+4. Right-click the language key hook you just created in the package explorer
+on the left and select *New*&rarr;*Liferay Hook Configuration*.
+
+5. With `my-greeting-language-hook` set as the *Hook plugin project* select
+*Language properties* for the *hook type* and *click* *Next*.
+
+6. Leave the default *Content folder* and click *Add*.
+
+7. Enter *Language_en.properties* for the property file, click *OK* and
+*Finish*.
+
+8. Open the `docroot/WEB-INF/src` folder of the `my-greeting-language-hook` and
+open the `Language_en.properties` file in the `content` package.
+
+9. Add the following language key to the file and Save it:
+
+        greeting-saved = Greeting saved successfully!
+
+    Now that you have the language key defined you can update the tag to use it.     
+    
+10. In `view.jsp` of the *my-greeting-portlet*, update the `liferay-ui:success`
+tag to look like the following code:
+
+        <liferay-ui:success key="success" message="greeting-saved"/>
+    
+11. Redeploy the portlet, go to the edit screen, edit the greeting, and save it. 
+The success message now uses the language key you just created! 
+    
+That was easy enough! Now that you've provided the user some positive feedback,
+you need to provide a way to inform him when his action failed to complete
 successfully. 
 
 ## Flagging Errors with liferay-ui:error [](id=flagging-errors-with-liferay-uierror)
@@ -106,48 +146,48 @@ equivalent utility class to `SessionMessages` called `SessionErrors`, to use for
 error notification. And there's a `liferay-ui:error` JSP tag in which you can
 supply your error message. 
 
-Let's add error notification to the My Greeting portlet: 
+Add error notification to the My Greeting portlet with these steps: 
 
 1.  Add the following `liferay-ui:error` tag to your `view.jsp` after the
 `liferay-ui:success` tag: 
 
-    ```
-    <liferay-ui:error key="error" message="Sorry, an error prevented saving
-    your greeting" />
-    ```
+    <liferay-ui:error key="error" message="sorry-error" />
+    
+2. Open the `Language_en.properties` file in the `my-greeting-language-hook`, 
+add the language key you just referenced in your error tag, and save the file:
 
+    sorry-error = Sorry, an error prevented saving your greeting
+    
 2. Modify `MyGreetingPortlet.java`'s `processAction` method to flag an error to
-the `actionRequest`, on catching an exception. Your `processAction` method should
-look like this: 
+the `actionRequest`, on catching an exception. Your `processAction` method 
+should look like this: 
 
-    ```
-    @Override
-    public void processAction(
-        ActionRequest actionRequest, ActionResponse actionResponse)
-        throws IOException, PortletException {
+        @Override
+        public void processAction(
+            ActionRequest actionRequest, ActionResponse actionResponse)
+            throws IOException, PortletException {
 
-        PortletPreferences prefs = actionRequest.getPreferences();
-        String greeting = actionRequest.getParameter("greeting");
+            PortletPreferences prefs = actionRequest.getPreferences();
+            String greeting = actionRequest.getParameter("greeting");
 
-        if (greeting != null) {
-            try {
-                prefs.setValue("greeting", greeting);
-                prefs.store();
+            if (greeting != null) {
+                try {
+                    prefs.setValue("greeting", greeting);
+                    prefs.store();
+                }
+                catch(Exception e) {
+                    SessionErrors.add(actionRequest, "error");
+                }
             }
-            catch(Exception e) {
-                SessionErrors.add(actionRequest, "error");
-            }
+
+            SessionMessages.add(actionRequest, "success");
+            super.processAction(actionRequest, actionResponse);
         }
-
-        SessionMessages.add(actionRequest, "success");
-        super.processAction(actionRequest, actionResponse);
-    }
-    ```
 
     Make sure to import the `com.liferay.portal.kernel.servlet.SessionErrors` 
     class.
 
-3.  Redeploy the portlet. 
+3.  Redeploy the `my-greeting-portlet` and `my-greeting-language-hook`. 
 
 If an error occurs in processing the action request, your `view.jsp` shows
 the error message in your portlet. 
@@ -157,6 +197,8 @@ the error message in your portlet.
 The final My Greeting portlet implemented in this tutorial, including
 its
 [`MyGreetingPortlet.java`](https://github.com/liferay/liferay-docs/blob/master/develop/tutorials/code/liferayui/success/end/my-greeting-portlet/docroot/WEB-INF/src/com/liferay/samples/MyGreetingPortlet.java)
+,
+[`my-greeting-language-hook`](https://github.com/liferay/liferay-docs/blob/master/develop/tutorials/code/liferayui/success/end/my-greeting-portlet/docroot/view.jsp)
 and
 [`view.jsp`](https://github.com/liferay/liferay-docs/blob/master/develop/tutorials/code/liferayui/success/end/my-greeting-portlet/docroot/view.jsp)
 files, is posted on GitHub 
