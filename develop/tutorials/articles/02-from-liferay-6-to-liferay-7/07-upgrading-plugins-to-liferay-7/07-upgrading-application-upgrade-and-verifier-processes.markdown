@@ -194,7 +194,7 @@ after it is converted to this new process? Would it be something like this?
         
             registry.register(
                 "com.liferay.calendar.service", "1.0.1", "1.0.2",
-                new UpgradeCalendarBooking());    
+                new com.liferay.calendar.upgrade.v1_0_1.UpgradeCalendarBooking());    
         }
         
         
