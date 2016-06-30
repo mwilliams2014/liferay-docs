@@ -344,8 +344,8 @@ upgrade process are outlined in the table below for reference:
 						on the UpgradeStepRegistrator:
 						
 						registry.register(
-						    "bundle.name","fromV",
-						    "1.0.0",list
+						    "bundle.name","fromVersion",
+						    "toVersion",list
 						)
 					</li>					
 					
