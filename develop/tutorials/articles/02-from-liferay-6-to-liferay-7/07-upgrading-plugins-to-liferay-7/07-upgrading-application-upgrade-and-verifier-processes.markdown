@@ -9,91 +9,7 @@ This tutorial demonstrates how to:
 - Upgrade an existing upgrade process to the new upgrade framework
 - Upgrade an existing verify process to the new verify framework
 
-Before you get started, you can review the older upgrade process next.
-
-
-<!-- I'll most likely merge some of the info in this section into the Upgrading
-your Upgrade Process section-->
-## Previous Upgrade Process Review [](id=previous-upgrade-process-review)
-
-Following the prior upgrade process, you had to define the property 
-`upgrade.processes`, a list of `UpgradeProcesses` representing the different 
-upgrades for a specific version of your module, in your `portal-ext.properties`.
-
-<!-- Was `portal-ext.properties` the correct file to add these properties to?-->
-
-For instance, the code below shows the previous process for upgrading 
-Calendar-service module from v1.0.0 to 1.0.1 and then to 1.0.2. 
-
-    upgrade.processes=
-        com.liferay.calendar.hook.upgrade.UpgradeProcess_1_0_0,
-        com.liferay.calendar.hook.upgrade.UpgradeProcess_1_0_1,
-        com.liferay.calendar.hook.upgrade.UpgradeProcess_1_0_2
-
-Each step between versions was represented by a single class extending
-`UpgradeProcess`, using a method called `doUpgrade`. This method was responsible
-for executing the internal steps to update the database to that concrete
-version. A method `getThreshold` is provided also to specify the schema version
-where the upgrade starts.
-
-The following example represents the required operations to update the database 
-to v1.0.0 using the old framework:
-
-    public class UpgradeProcess_1_0_0 extends UpgradeProcess {
-    
-        @Override
-        public int getThreshold() {
-            return 100;
-        }
-    
-        @Override
-        protected void doUpgrade() throws Exception {
-            upgrade(UpgradeCalendarBooking.class);
-        }
-        
-    }
-
-The following example represents the required operations to update the database 
-to v1.0.1 using the old framework:
-
-    public class UpgradeProcess_1_0_1 extends UpgradeProcess {
-    
-        @Override
-        public int getThreshold() {
-            return 101;
-        }
-    
-        @Override
-        protected void doUpgrade() throws Exception {
-            upgrade(UpgradeCalendar.class);
-            upgrade(UpgradeCalendarBooking.class);
-        }
-        
-    }
-
-
-The following example represents the required operations to update the database 
-to v1.0.2 using the old framework:
-
-    public class UpgradeProcess_1_0_1 extends UpgradeProcess {
-    
-        @Override
-        public int getThreshold() {
-            return 102;
-        }
-    
-        @Override
-        protected void doUpgrade() throws Exception {
-             upgrade(UpgradePortletPreferences.class);
-        }
-        
-    }
-
-Whenever you needed another internal step, you added another 
-`upgrade(new UpgradePortletPreferences());` etc. after the existing ones.
-
-Now that you are familiarized with the older framework, you can learn how to
-migrate your code to the new upgrade framework next.
+Go ahead and get started with the upgrade process next.
 
 ## Upgrading Your Upgrade Process to the New Framework
 
@@ -102,7 +18,8 @@ Follow the steps below to migrate your code to the new framework.
 1.  If your application has any dependencies, add a dependency on the 
     `portal-upgrade` module to your `build.gradle` file:
     
-        provided group: "com.liferay", name: "com.liferay.portal.upgrade", version: "2.0.0"
+        provided group: "com.liferay", name: "com.liferay.portal.upgrade", 
+        version: "2.0.0"
 
 2.  Check your database schema version against your bundle version.
 
@@ -125,10 +42,32 @@ Follow the steps below to migrate your code to the new framework.
                 service = UpgradeStepRegistrator.class
         )
 
-        public class CalendarServiceUpgrade implements UpgradeStepRegistrator
+        public class CalendarServiceUpgrade implements UpgradeStepRegistrator       
 
 4.  Remove the intermediate classes that wrapped the internal steps, i.e the 
     `public class UpgradeProcess_1_0_1 extends UpgradeProcess...`.
+    
+    Following the prior upgrade process in 6.2, you had to define the property 
+    `upgrade.processes`, a list of `UpgradeProcesses` representing the different 
+    upgrades for a specific version of your module, in your 
+    `portal-ext.properties`.
+    
+    For instance, the code below shows the previous process for upgrading 
+    Calendar-service module from v1.0.0 to 1.0.1 and then to 1.0.2. 
+    
+        upgrade.processes=
+            com.liferay.calendar.hook.upgrade.UpgradeProcess_1_0_0,
+            com.liferay.calendar.hook.upgrade.UpgradeProcess_1_0_1,
+            com.liferay.calendar.hook.upgrade.UpgradeProcess_1_0_2
+    
+    Each step between versions was represented by a single class extending
+    `UpgradeProcess`, using a method called `doUpgrade`. This method was 
+    responsible for executing the internal steps to update the database to that 
+    concrete version. A method `getThreshold` is provided also to specify the 
+    schema version where the upgrade starts.
+    
+    Whenever you needed another internal step, you added another
+    `upgrade(new UpgradePortletPreferences());` etc. after the existing ones.
 
     With the new framework, previous type of classes are represented by upgrade 
     registrations instead.
@@ -165,7 +104,9 @@ Follow the steps below to migrate your code to the new framework.
 
     The internal steps defined within the intermediate classes, the former 
     `UpgradeProcess` class, as they are indeed `UpgradeSteps`, require no change
-    on your part. The new framework will process the steps as they are.
+    on your part. The new framework will process the steps as they are. The
+    example below shows a comparison between the old framework version and the 
+    new framework version.
 
     old framework:
 
@@ -213,6 +154,9 @@ Follow the steps below to migrate your code to the new framework.
 
     private static final Log _log = logFactoryUtil.getLog(
         UpgradeProcess_1_0_0.class);
+        
+    Log code is inside of the framework, so upgrade steps do not need to log
+    their operations.
 
 6.  Finally, use the `@Reference` annotation to reference the services that you 
     need for the upgrade. For example, here is a reference to the
@@ -436,4 +380,6 @@ Your verify processes are upgraded!
 
 ## Related Topics
 
-<!-- Add topics here -->
+[Creating a Verify Process for Your App](/develop/tutorials/-/knowledge_base/7-0/creating-a-verify-process-for-your-app)
+
+[Creating an Upgrade Process for Your App](/develop/tutorials/-/knowledge_base/7-0/creating-an-upgrade-process-for-your-app)
