@@ -213,18 +213,6 @@ Follow the steps below to migrate your code to the new framework.
 
     private static final Log _log = logFactoryUtil.getLog(
         UpgradeProcess_1_0_0.class);
-        
-<!-- Can you point to an example in Liferay portal that uses this logger code in
-its upgrade process?  Does every upgrade process have this line of code?
-
-I found an example of this code in a 7.0 app: 
-[https://github.com/liferay/liferay-portal/blob/0b6bbc6d48922f8079c008489304a5427be15e9b/modules/apps/forms-and-workflow/polls/polls-service/src/main/java/com/liferay/polls/upgrade/PollsServiceUpgrade.java](https://github.com/liferay/liferay-portal/blob/0b6bbc6d48922f8079c008489304a5427be15e9b/modules/apps/forms-and-workflow/polls/polls-service/src/main/java/com/liferay/polls/upgrade/PollsServiceUpgrade.java)
-
-Is the logger code suppose to be in a 7.0 upgrade? If so, why are we removing it
-here?
-
-thx!
--->        
 
 6.  Finally, use the `@Reference` annotation to reference the services that you 
     need for the upgrade. For example, here is a reference to the
