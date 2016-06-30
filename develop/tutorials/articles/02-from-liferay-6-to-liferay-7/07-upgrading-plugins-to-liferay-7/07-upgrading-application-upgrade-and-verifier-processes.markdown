@@ -16,7 +16,7 @@ Before you get started, you can review the older upgrade process next.
 your Upgrade Process section-->
 ## Previous Upgrade Process Review [](id=previous-upgrade-process-review)
 
-Following the prior upgrade process, you have to define the property 
+Following the prior upgrade process, you had to define the property 
 `upgrade.processes`, a list of `UpgradeProcesses` representing the different 
 upgrades for a specific version of your module, in your `portal-ext.properties`.
 
