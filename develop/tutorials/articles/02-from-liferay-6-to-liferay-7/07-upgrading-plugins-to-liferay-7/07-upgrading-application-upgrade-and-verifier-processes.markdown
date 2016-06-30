@@ -161,7 +161,7 @@ Follow the steps below to migrate your code to the new framework.
     from version 0.0.1 to version 1.0.0. The changes are produced by a list of 
     `UpgradeSteps` instances, which in this example contains only one step:
 
-        new com.liferay.calendar.upgrade.v1_0_0.UpgradeCalendarBooking());
+        new com.liferay.calendar.upgrade.v1_0_0.UpgradeCalendarBooking();
 
     The internal steps defined within the intermediate classes, the former 
     `UpgradeProcess` class, as they are indeed `UpgradeSteps`, require no change
