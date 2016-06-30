@@ -166,50 +166,48 @@ Follow the steps below to migrate your code to the new framework.
     The internal steps defined within the intermediate classes, the former 
     `UpgradeProcess` class, as they are indeed `UpgradeSteps`, require no change
     on your part. The new framework will process the steps as they are.
-    
-<!-- Manuel can you show an example of what an old internal step would look like
-after it is converted to this new process? Would it be something like this?
 
     old framework:
 
-    public class UpgradeProcess_1_0_1 extends UpgradeProcess {
-    
-        @Override
-        public int getThreshold() {
-            return 102;
-        }
-    
-        @Override
-        protected void doUpgrade() throws Exception {
-             upgrade(UpgradeCalendarBooking.class);
-        }
+        public class UpgradeProcess_1_0_1 extends UpgradeProcess {
         
-    }
-    
+            @Override
+            public int getThreshold() {
+                return 102;
+            }
+        
+            @Override
+            protected void doUpgrade() throws Exception {
+                upgrade(UpgradeCalendarBooking.class);
+            }
+            
+        }
+
     new framework version:
     
-        @Override
-    
-        public void register(Registry registry) {
+        @Component(
+            immediate = true,
+            service = {CalendarWebUpgrade.class, UpgradeStepRegistrator.class}
+        )
+        public class CalendarWebUpgrade implements UpgradeStepRegistrator {
+
+            @Override
+            public void register(Registry registry) {
+                registry.register(
+                    "com.liferay.calendar.web", "0.0.0", "1.0.0",
+                    new DummyUpgradeStep());
+                
+                registry.register(
+                    "com.liferay.calendar.web", "0.0.1", "1.0.0",
+                    new UpgradePortletId(), new UpgradePortletPreferences());
+                
+                registry.register(
+                    "com.liferay.calendar.web", "1.0.0", "1.0.1",
+                    new com.liferay.calendar.web.upgrade.v1_0_1.
+                        UpgradePortletPreferences());    
+            }   
         
-            registry.register(
-                "com.liferay.calendar.service", "1.0.1", "1.0.2",
-                new com.liferay.calendar.upgrade.v1_0_1.UpgradeCalendarBooking());    
         }
-        
-        
-        
-        
-        
-        would that work? or would the upgrade step have to be 
-        `new com.liferay.calendar.upgrade.v1_0_0.UpgradeCalendarBooking());`
-        
-        based on what is said above, this should work, right? the 
-        `upgrade(UpgradeCalendarBooking.class);` step will automatically be
-        converted into the correct format?
-        
-        thx!
--->    
 
 5.  Remove the logger code. It should look similar to the following pattern:
 
