@@ -220,11 +220,11 @@ Follow the steps below to migrate your code to the new framework.
     class:
 
         @Reference(unbind = "-")
-	public void setExpandoRowLocalService(
-		ExpandoRowLocalService expandoRowLocalService) {
-
-		_expandoRowLocalService = expandoRowLocalService;
-	}
+        public void setExpandoRowLocalService(
+            ExpandoRowLocalService expandoRowLocalService) {
+            
+            _expandoRowLocalService = expandoRowLocalService;
+        }
 
 With that, your application upgrade processes are upgraded!
 
