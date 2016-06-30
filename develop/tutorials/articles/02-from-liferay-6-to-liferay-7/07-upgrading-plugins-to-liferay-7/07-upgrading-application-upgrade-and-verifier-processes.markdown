@@ -152,9 +152,9 @@ Follow the steps below to migrate your code to the new framework.
         public void register(Registry registry) {
         
             registry.register(
-                            "com.liferay.calendar.service", "0.0.1", "1.0.0",
-                            new com.liferay.calendar.upgrade.
-                            v1_0_0.UpgradeCalendarBooking()));    
+                "com.liferay.calendar.service", "0.0.1", "1.0.0",
+                new com.liferay.calendar.upgrade.
+                v1_0_0.UpgradeCalendarBooking()));    
         }
 
     In this example, the `com.liferay.calendar.service` module is being upgraded 
@@ -193,8 +193,8 @@ after it is converted to this new process? Would it be something like this?
         public void register(Registry registry) {
         
             registry.register(
-                            "com.liferay.calendar.service", "1.0.1", "1.0.2",
-                            upgrade(UpgradeCalendarBooking.class);    
+                "com.liferay.calendar.service", "1.0.1", "1.0.2",
+                upgrade(UpgradeCalendarBooking.class);    
         }
         
         
