@@ -142,7 +142,7 @@ Follow the steps below to migrate your code to the new framework.
     - the bundle symbolic name of the module.
     - the schema version your module wants to upgrade from (as a `String`)
     - the schema version your module wants to upgrade to (as a `String`)
-    - a list of `UpgradeSteps`
+    - a list of `UpgradeSteps` instances
 
     For example, here is an upgrade process for the 
     `com.liferay.calendar.service` module:
@@ -159,7 +159,7 @@ Follow the steps below to migrate your code to the new framework.
 
     In this example, the `com.liferay.calendar.service` module is being upgraded 
     from version 0.0.1 to version 1.0.0. The changes are produced by a list of 
-    `UpgradeSteps`, which in this example contains only one step:
+    `UpgradeSteps` instances, which in this example contains only one step:
 
         new com.liferay.calendar.upgrade.v1_0_0.UpgradeCalendarBooking());
 
@@ -194,7 +194,7 @@ after it is converted to this new process? Would it be something like this?
         
             registry.register(
                 "com.liferay.calendar.service", "1.0.1", "1.0.2",
-                upgrade(UpgradeCalendarBooking.class);    
+                new UpgradeCalendarBooking());    
         }
         
         
