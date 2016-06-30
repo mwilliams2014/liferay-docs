@@ -102,7 +102,7 @@ Follow the steps below to migrate your code to the new framework.
 1.  If your application has any dependencies, add a dependency on the 
     `portal-upgrade` module to your `build.gradle` file:
     
-        compile project(":portal:portal-upgrade")
+        provided group: "com.liferay", name: "com.liferay.portal.upgrade", version: "2.0.0"
 
 2.  Check your database schema version against your bundle version.
 
