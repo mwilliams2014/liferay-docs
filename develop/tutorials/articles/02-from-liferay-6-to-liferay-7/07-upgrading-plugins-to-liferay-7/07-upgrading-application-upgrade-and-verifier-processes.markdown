@@ -41,7 +41,6 @@ Follow the steps below to migrate your code to the new framework.
                 immediate = true, 
                 service = UpgradeStepRegistrator.class
         )
-
         public class CalendarServiceUpgrade implements UpgradeStepRegistrator       
 
 4.  Remove the intermediate classes that wrapped the internal steps, i.e the 
@@ -63,7 +62,7 @@ Follow the steps below to migrate your code to the new framework.
     Each step between versions was represented by a single class extending
     `UpgradeProcess`, using a method called `doUpgrade`. This method was 
     responsible for executing the internal steps to update the database to that 
-    concrete version. A method `getThreshold` is provided also to specify the 
+    concrete version. A method `getThreshold` was provided also to specify the 
     schema version where the upgrade starts.
     
     Whenever you needed another internal step, you added another
@@ -103,8 +102,8 @@ Follow the steps below to migrate your code to the new framework.
         new com.liferay.calendar.upgrade.v1_0_0.UpgradeCalendarBooking()
 
     The internal steps defined within the intermediate classes, the former 
-    `UpgradeProcess` class, as they are indeed `UpgradeSteps`, require no change
-    on your part. The new framework will process the steps as they are. The
+    `UpgradeProcess` class, require no change on your part, as they are indeed 
+    `UpgradeSteps`. The new framework will process the steps as they are. The
     example below shows a comparison between the old framework version and the 
     new framework version.
 
