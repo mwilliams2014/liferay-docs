@@ -1,7 +1,7 @@
-# Upgrading Application Upgrade and Verifier Processes
+# Upgrading Application Upgrade and Verifier Processes [](id=upgrading-application-upgrade-and-verifier-processes)
 
-Since Liferay 7.0 and Lifery DXP, a new upgrade framework and verifier framework 
-is available for you to use for your application. You can upgrade your existing 
+Since Liferay 7.0 and Lifery DXP, a new upgrade framework and verifier framework
+is available for you to use for your application. You can upgrade your existing
 upgrade and verify processes to use the new framework in just a few steps.
 
 This tutorial demonstrates how to:
@@ -11,167 +11,206 @@ This tutorial demonstrates how to:
 
 Go ahead and get started with the upgrade process next.
 
-## Upgrading Your Upgrade Process to the New Framework
+## Upgrading Your Upgrade Process to the New Framework [](id=upgrading-your-upgrade-process-to-the-new-framework)
 
 Follow the steps below to migrate your code to the new framework.
 
-1.  If your application has any dependencies, add a dependency on the 
+1.  If your application has any dependencies, add a dependency on the
     `portal-upgrade` module to your `build.gradle` file:
-    
-        provided group: "com.liferay", name: "com.liferay.portal.upgrade", 
+
+        provided group: "com.liferay", name: "com.liferay.portal.upgrade",
         version: "2.0.0"
 
 2.  Check your database schema version against your bundle version.
 
-    If the database schema is in a different version than the bundle version, 
-    specify the different versions for the bundle and schema in your `bnd.bnd` 
-    file, using the `require-SchemaVersion` property:
+    After you make changes to your module you might increment the module
+    version, however the database schema version may remain untouched, and
+    therefore have a different value. If your module's database schema is a 
+    different version than your module's bundle version, you can specify it in 
+    the BND file.
+    
+    Add the`Liferay-Require-SchemaVersion` property to your `bnd.bnd` file to 
+    describe that the schema version of the module uses a different version than 
+    the module's bundle version.
+    
+    For example, the [Chat App](https://github.com/liferay/liferay-portal/blob/0d69917/modules/apps/chat/chat-service/bnd.bnd)
+    specifies the bundle version and schema version below:
 
-        require-SchemaVersion: 1.0.2
+        Bundle-Version: 1.0.2
+        
+        ...
+        
+        Liferay-Require-SchemaVersion: 1.0.0
 
-    If no `Required-SchemaVersion` is found, the `Bundle-Version` header will be 
-    used. Now that the build files are configured, you can move on to the 
-    upgrade class next.
+    If no `Liferay-Require-SchemaVersion` value is found, the `Bundle-Version`
+    header will be used.
+    
+    Note that once you make an upgrade to your app, it is best practice to 
+    specify your schema version with the `Liferay-Require-SchemaVersion` 
+    property from that point on. This way, if the bundle version and schema 
+    version ever differ, your database schema version will always be correct.
 
-3.  Convert your `upgrade` class into an OSGi component, using the `@Component` 
+3.  Convert your `upgrade` class into an OSGi component, using the `@Component`
     token and implement the `UpgradeStepRegistrator` interface, as shown in the
     example below:
-    
+
         @Component(
-                immediate = true, 
+                immediate = true,
                 service = UpgradeStepRegistrator.class
         )
-        public class CalendarServiceUpgrade implements UpgradeStepRegistrator       
+        public class CalendarServiceUpgrade implements UpgradeStepRegistrator
 
-4.  Remove the intermediate classes that wrapped the internal steps, i.e the 
+4.  Remove the intermediate classes that wrapped the internal steps, i.e the
     `public class UpgradeProcess_1_0_1 extends UpgradeProcess...`.
-    
-    Following the prior upgrade process in 6.2, you had to define the property 
-    `upgrade.processes`, a list of `UpgradeProcesses` representing the different 
-    upgrades for a specific version of your module, in your 
+
+    Following the prior upgrade process in 6.2, you had to define the property
+    `upgrade.processes`, a list of `UpgradeProcesses` representing the different
+    upgrades for a specific version of your module, in your
     `portal-ext.properties`.
-    
-    For instance, the code below shows the previous process for upgrading 
-    Calendar-service module from v1.0.0 to 1.0.1 and then to 1.0.2. 
-    
+
+    For instance, the code below shows the previous process for upgrading
+    Calendar-service module from v1.0.0 to 1.0.1 and then to 1.0.2.
+
         upgrade.processes=
             com.liferay.calendar.hook.upgrade.UpgradeProcess_1_0_0,
             com.liferay.calendar.hook.upgrade.UpgradeProcess_1_0_1,
             com.liferay.calendar.hook.upgrade.UpgradeProcess_1_0_2
-    
+
     Each step between versions was represented by a single class extending
-    `UpgradeProcess`, using a method called `doUpgrade`. This method was 
-    responsible for executing the internal steps to update the database to that 
-    concrete version. A method `getThreshold` was provided also to specify the 
+    `UpgradeProcess`, using a method called `doUpgrade`. This method was
+    responsible for executing the internal steps to update the database to that
+    concrete version. A method `getThreshold` was provided also to specify the
     schema version where the upgrade starts.
-    
+
     Whenever you needed another internal step, you added another
     `upgrade(new UpgradePortletPreferences());` etc. after the existing ones.
 
-    With the new framework, previous type of classes are represented by upgrade 
-    registrations instead.
+    Classes are now represented by upgrade registrations in the new framework
+    instead.
 
-    Each upgrade is represented by an upgrade registration. An upgrade 
-    registration is an abstraction for the changes you need to apply to the 
-    database from one version to the next one.
+    Each upgrade is represented by an upgrade registration. An upgrade
+    registration is an abstraction for the changes you need to apply to the
+    database from one version to the next one. The registrations are defined in
+    an override of method
+    [UpgradeStepRegistrator.register(UpgradeStepRegistrator.Registry)](https://docs.liferay.com/portal/7.0/javadocs/modules/apps/foundation/portal/com.liferay.portal.upgrade/com/liferay/portal/upgrade/registry/UpgradeStepRegistrator.html#register(com.liferay.portal.upgrade.registry.UpgradeStepRegistrator.Registry)).
 
-    To define a registration, you need to provide
+    To define a registration, you need to provide the information below:
 
-    - the bundle symbolic name of the module.
+    - the bundle symbolic name of the module
     - the schema version your module wants to upgrade from (as a `String`)
     - the schema version your module wants to upgrade to (as a `String`)
     - a list of `UpgradeSteps` instances
 
-    For example, here is an upgrade process for the 
-    `com.liferay.calendar.service` module:
-
-        @Override
-    
-        public void register(Registry registry) {
-        
-            registry.register(
-                "com.liferay.calendar.service", "0.0.1", "1.0.0",
-                new com.liferay.calendar.upgrade.
-                v1_0_0.UpgradeCalendarBooking()));    
-        }
-
-    In this example, the `com.liferay.calendar.service` module is being upgraded 
-    from version 0.0.1 to version 1.0.0. The changes are produced by a list of 
-    `UpgradeSteps` instances, which in this example contains only one step:
-
-        new com.liferay.calendar.upgrade.v1_0_0.UpgradeCalendarBooking()
-
-    The internal steps defined within the intermediate classes, the former 
-    `UpgradeProcess` class, require no change on your part, as they are indeed 
+    The internal steps defined within the intermediate classes, the former
+    `UpgradeProcess` class, require no change on your part, as they are indeed
     `UpgradeSteps`. The new framework will process the steps as they are. The
-    example below shows a comparison between the old framework version and the 
-    new framework version.
+    example below shows how the the Document Library app uses an older upgrade
+    process in its registration method in the new framework.
 
-    old framework:
+    old framework class [UpgradePortletSettings.java](https://github.com/liferay/liferay-portal/blob/master/modules/apps/collaboration/document-library/document-library-web/src/main/java/com/liferay/document/library/web/internal/upgrade/v1_0_0/UpgradePortletSettings.java):
 
-        public class UpgradeProcess_1_0_1 extends UpgradeProcess {
-        
-            @Override
-            public int getThreshold() {
-                return 102;
-            }
-        
-            @Override
-            protected void doUpgrade() throws Exception {
-                upgrade(UpgradeCalendarBooking.class);
-            }
-            
+        public class UpgradePortletSettings
+                extends com.liferay.portal.upgrade.v7_0_0.UpgradePortletSettings {
+
+                public UpgradePortletSettings(SettingsFactory settingsFactory) {
+                        super(settingsFactory);
+                }
+
+                @Override
+                protected void doUpgrade() throws Exception {
+                        DLGroupServiceSettings.registerSettingsMetadata();
+                        DLPortletInstanceSettings.registerSettingsMetadata();
+
+                        upgradeMainPortlet(
+                                DLPortletKeys.DOCUMENT_LIBRARY, DLConstants.SERVICE_NAME,
+                                PortletKeys.PREFS_OWNER_TYPE_GROUP, true);
+
+                        upgradeDisplayPortlet(
+                                DLPortletKeys.DOCUMENT_LIBRARY, DLConstants.SERVICE_NAME,
+                                PortletKeys.PREFS_OWNER_TYPE_LAYOUT);
+                        upgradeDisplayPortlet(
+                                DLPortletKeys.MEDIA_GALLERY_DISPLAY, DLConstants.SERVICE_NAME,
+                                PortletKeys.PREFS_OWNER_TYPE_LAYOUT);
+                }
+
         }
 
-    new framework version:
+    If you examine the `UpgradePortletSettings` class, you'll see that it
+    extends the
+    [com.liferay.portal.upgrade.v7_0_0.UpgradePortletSettings](https://github.com/liferay/liferay-portal/blob/692cff9635bd909ba13fab22574d4c02bae3ba91/portal-impl/src/com/liferay/portal/upgrade/v7_0_0/UpgradePortletSettings.java)
+    class, which extends the `UpgradeProcess` class. This follows the old
+    upgrade framework.
+
+    new framework [DLWebUpgrade.java](https://github.com/liferay/liferay-portal/blob/master/modules/apps/collaboration/document-library/document-library-web/src/main/java/com/liferay/document/library/web/internal/upgrade/DLWebUpgrade.java):
+
+        @Component(immediate = true, service = UpgradeStepRegistrator.class)
+        public class DLWebUpgrade implements UpgradeStepRegistrator {
+
+                @Override
+                public void register(Registry registry) {
+                        registry.register(
+                                "com.liferay.document.library.web", "0.0.0", "1.0.0",
+                                new DummyUpgradeStep());
+
+                        registry.register(
+                                "com.liferay.document.library.web", "0.0.1", "1.0.0",
+                                new UpgradeAdminPortlets(),
+                                new UpgradePortletSettings(_settingsFactory));
+        }
+
+    As you can see the new framework calls the old `UpgradePortletSettings`
+    framework class and uses it in the new registration method without any
+    problems.
+
+    The `DLWebUpgrade` new framework example covers two different use cases with 
+    two different registrations. If the first registration is not needed, the 
+    upgrade process skips it and uses the second upgrade registration instead.
+
+    The first registration is used if your app has never been installed in
+    @product@, and therefore does not exist in the data table. If you look at
+    the [DummyUpgradeStep](https://github.com/liferay/liferay-portal/blob/master/portal-kernel/src/com/liferay/portal/kernel/upgrade/DummyUpgradeStep.java)
+    class, you can see that it is empty. The `DummyUpgradeStep()` creates an
+    initial release version(1.0.0 in this case) for your app in the data table,
+    so that you can upgrade your app's version later on.
     
-        @Component(
-            immediate = true,
-            service = {CalendarWebUpgrade.class, UpgradeStepRegistrator.class}
-        )
-        public class CalendarWebUpgrade implements UpgradeStepRegistrator {
+    If your app has never been installed in @product@, use the 
+    `DummyUpgradeStep()` to create your initial release version.
 
-            @Override
-            public void register(Registry registry) {
-                registry.register(
-                    "com.liferay.calendar.web", "0.0.0", "1.0.0",
-                    new DummyUpgradeStep());
-                
-                registry.register(
-                    "com.liferay.calendar.web", "0.0.1", "1.0.0",
-                    new UpgradePortletId(), new UpgradePortletPreferences());
-                
-                registry.register(
-                    "com.liferay.calendar.web", "1.0.0", "1.0.1",
-                    new com.liferay.calendar.web.upgrade.v1_0_1.
-                        UpgradePortletPreferences());    
-            }   
-        
-        }
+    If your app has an existing version in @product@, the first registration is
+    skipped, and the second registration is used instead. In the example, the
+    registration finds the 0.0.1 version in the data table and upgrades it to
+    version 1.0.0. The changes are produced by a list of `UpgradeSteps`
+    instances, which in this example contains two steps:
+
+        new UpgradeAdminPortlets()
+        new UpgradePortletSettings(_settingsFactory)
+
+    You can use this same process to upgrade your 6.2 upgrade processes to use
+    the new framework.
 
 5.  Remove the logger code. It should look similar to the following pattern:
 
     private static final Log _log = logFactoryUtil.getLog(
         UpgradeProcess_1_0_0.class);
-        
+
     Log code is inside of the framework, so upgrade steps do not need to log
     their operations.
 
-6.  Finally, use the `@Reference` annotation to reference the services that you 
+6.  Finally, use the `@Reference` annotation to reference the services that you
     need for the upgrade. For example, here is a reference to the
-    `expandoRowLocalService` for the [DDMServiceUpgrade.java](https://github.com/liferay/liferay-portal/blob/b46614dab20730319ba4218670e05e1d15fb6443/modules/apps/forms-and-workflow/dynamic-data-mapping/dynamic-data-mapping-service/src/main/java/com/liferay/dynamic/data/mapping/upgrade/DDMServiceUpgrade.java) 
+    `companyLocalService` for the [PrivateMessagingServiceUpgrade.java](https://github.com/liferay/liferay-portal/blob/master/modules/apps/social-private-messaging/social-private-messaging-service/src/main/java/com/liferay/social/privatemessaging/internal/upgrade/PrivateMessagingServiceUpgrade.java)
     class:
 
-        @Reference(unbind = "-")
-        public void setExpandoRowLocalService(
-            ExpandoRowLocalService expandoRowLocalService) {
-            
-            _expandoRowLocalService = expandoRowLocalService;
-        }
+	@Reference(unbind = "-")
+	protected void setCompanyLocalService(
+		CompanyLocalService companyLocalService) {
+
+		_companyLocalService = companyLocalService;
+	}
 
 With that, your application upgrade processes are upgraded!
 
-For your convienience, a summary of the steps for upgrading your application 
+For your convienience, a summary of the steps for upgrading your application
 upgrade process are outlined in the table below for reference:
 
 <style>
@@ -236,13 +275,13 @@ upgrade process are outlined in the table below for reference:
 			<td class="">
 				<ul>
 					<li>
-						Add Require-SchemaVersion if
+						Add Liferay-Require-SchemaVersion if
 						needed.
-					</li>					
-					
-				</ul> 
+					</li>
+
+				</ul>
 			</td>
-		</tr>		
+		</tr>
 		<tr>
 			<td class="table-header left-header">
 			MyCustomServiceUpgrade.java
@@ -256,11 +295,11 @@ upgrade process are outlined in the table below for reference:
 					        It has no loggers.
 					</li>
 					<li>
-					        It has no reference to Release 
+					        It has no reference to Release
 					        service.
-					</li>					
-					
-				</ul> 
+					</li>
+
+				</ul>
 			</td>
 		</tr>
 		<tr>
@@ -271,9 +310,9 @@ upgrade process are outlined in the table below for reference:
 				<ul>
 					<li>
 						Remove it.
-					</li>					
-					
-				</ul> 
+					</li>
+
+				</ul>
 			</td>
 		</tr>
 		<tr>
@@ -285,14 +324,14 @@ upgrade process are outlined in the table below for reference:
 					<li>
 						Disappears. It is a registration
 						on the UpgradeStepRegistrator:
-						
+
 						registry.register(
 						    "bundle.name","fromVersion",
 						    "toVersion",list
 						)
-					</li>					
-					
-				</ul> 
+					</li>
+
+				</ul>
 			</td>
 		</tr>
 		<tr>
@@ -304,9 +343,9 @@ upgrade process are outlined in the table below for reference:
 					<li>
 						No changes, it's already an
 						UpgradeStep.
-					</li>					
-					
-				</ul> 
+					</li>
+
+				</ul>
 			</td>
 		</tr>
 		<tr>
@@ -316,15 +355,15 @@ upgrade process are outlined in the table below for reference:
 			<td class="">
 				<ul>
 					<li>
-						No changes. Passed as a 
+						No changes. Passed as a
 						parameter in the list of
 						UpgradeSteps for the
 						registration.
-					</li>					
-					
-				</ul> 
+					</li>
+
+				</ul>
 			</td>
-		</tr>		
+		</tr>
 	</tbody>
 </table>
 </div>
@@ -333,51 +372,54 @@ upgrade process are outlined in the table below for reference:
 </div>
 </div>
 
-Next you can learn how to upgrade your application verify processes.
+Next you can learn how to upgrade your application's verify processes.
 
-## Upgrading your Verify Process to the new Framework
+## Upgrading your Verify Process to the new Framework [](id=upgrading-your-verify-process-to-the-new-framework)
 
 Follow the steps below to migrate your verify process to the new framework.
 
-1.  Convert your `verify` class into a component, using the `@Component` token  
-    and define the following properties:
-    
+1.  Convert your `verify` class into a component, using the `@Component` token
+    and define the properties below:
+
         @Component(
                 immediate = true,
                 property = {"verify.process.name=
                 com.liferay.[package.name.service]"},
                 service = VerifyProcess.class
         )
-        
-    The `immediate` property specifies that the component will be available 
-    immediately, rather than the first time it is used. The 
-    `verify.process.name` property should point to the name of the service 
-    package of the app. Make sure your replace `[package.name.service]` with the 
-    service package name for your app. The OSGi service tracker uses this 
-    information to identify the verifier components. You must use 
+
+    The `immediate` property specifies that the component will be available
+    immediately, rather than the first time it is used. The
+    `verify.process.name` property should point to the name of the service
+    package of the app. Make sure your replace `[package.name.service]` with the
+    service package name for your app. The OSGi service tracker uses this
+    information to identify the verifier components. You must use
     `VerifyProcess.class` as the `service` property value, to denote that the
     class is a valid implementation of the `VerifyProcess` interface.
 
-2.  Reference any Liferay services the class uses, using the `@Reference`
-    annotation. For example, here is a reference to the 
-    `dlFileVersionLocalService` for the [Document Library app](https://github.com/liferay/liferay-portal/blob/2960360870ae69360861a720136e082a06c5548f/modules/apps/collaboration/document-library/document-library-service/src/main/java/com/liferay/document/library/workflow/DLFileEntryWorkflowHandler.java)
+2.  Declare a setter method for each Liferay service the class uses, using the
+    `@Reference` annotation. For example, here is a reference to the
+    `dlFileVersionLocalService` for the [Document Library app](https://github.com/liferay/liferay-portal/blob/7.0.1-ga2/modules/apps/collaboration/document-library/document-library-service/src/main/java/com/liferay/document/library/workflow/DLFileEntryWorkflowHandler.java)
     :
-    
+
         @Reference(unbind = "-")
         protected void setDLFileVersionLocalService(
           DLFileVersionLocalService dlFileVersionLocalService) {
-    
+
           _dlFileVersionLocalService = dlFileVersionLocalService;
         }
+
         ...
+
         private DLFileVersionLocalService _dlFileVersionLocalService;
-        
+
     When another module provides the service implementation, the verify process
-    will be able to use it.
+    will be able to use it. The optional element assignment `unbind = "_"`
+    declares that there's no unbind method.
 
 Your verify processes are upgraded!
 
-## Related Topics
+## Related Topics [](id=related-topics)
 
 [Creating a Verify Process for Your App](/develop/tutorials/-/knowledge_base/7-0/creating-a-verify-process-for-your-app)
 
