@@ -61,7 +61,7 @@ be set in the manifest.
 
 $$$
 
-<!-- leaving this section out for now, until it is developed further--
+<!-- leaving this section out for now, until it is developed further
 
 Alternatively, theme contributors can be identifed in the `package.json` file:
 
