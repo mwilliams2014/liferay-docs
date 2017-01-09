@@ -8,14 +8,11 @@ that makes this process much easier.
 
 Adaptive Media applies several improvements to achieve better performance and 
 optimize your media's delivery to a device. So far, these optimizations are 
-only available for images in Blogs, but more media types will be supported in 
-the future.
-<!--We have started with optimizing the 
-images delivery to the users. -->
+only available for images, but more media types will be supported in the future.
+
+<!-- At the time of this writing this is only implemented for blog images. -->
 
 ## Adaptive Media Images
-
-<!-- What Image variants are and how they are determined for a device -->
 
 Adaptive media optimizes the image delivery according to the size of the image 
 and the screen device. Portal Administrators define a set of image sizes that 
@@ -41,24 +38,6 @@ image, given the configuration above, the Low Resolution image is displayed. If
 the image is viewed on a desktop with a large screen instead, the Very High 
 Resolution image is displayed.
 
-You can specify the image variant to use for a device in a few different ways:
-
--   Choose the image whose width is smaller than the screen width.
--   Choose the image whose height is smaller than the screen height.
--   Choose the image whose width and height are smaller than the
-    screen width and height.
--   Choose the image whose width and height are more similar to the
-    screen size.
--   Choose the image whose width and height are slightly smaller than
-    the screen size
-
-As you can see, there are many ways to choose the best image for a device. The 
-consumer of the Adaptive Media API will decide which image is best for the 
-particular use case.
-
-<!-- How does the consumer specify which image variant to use with the API? Is 
-that something you would want to do, or is this automatically determined? -->
-
 The Blogs portlet displays images whose width is the closest to the screen width 
 but not larger. The image's height isn't considered when choosing the optimal 
 image. Consider the use cases below:
@@ -71,10 +50,10 @@ image. Consider the use cases below:
     (since there is no image variant that can be displayed with the example 
     configuration).
 
-You can see the image variants when you view the source code for the image in
-the edit view of a Blog entry.
+You can see the image variants when you view the source code for the image in a 
+Blog entry.
 
-![Figure 1: The adaptive resolutions can be seen in the images source code while editing a Blog Entry.](../../images/adaptive-media-blog-entry)
+![Figure 1: The adaptive resolutions can be seen in the image source code while editing a Blog Entry.](../../images/adaptive-media-blog-entry)
 
 However, this is just a particular use case of the Adaptive Media API in the 
 Blogs portlet in @product@. Another application or client can have a different 
@@ -88,10 +67,8 @@ the parameters are included as part of
 [https://issues.liferay.com/browse/LPS-68587](https://www.google.com/url?q=https://issues.liferay.com/browse/LPS-68587&sa=D&ust=1482880889887000&usg=AFQjCNHU8WvUnm_CTegd3z4jVzJHQ8zaYw)
 -->
 
-To enable Adaptive Images you must create some image resolutions first. You can 
-configure Adaptive Media settings at the Portal level and at the instance level. 
-
-Both of these configurations are covered next.
+You can configure Adaptive Media settings at the Portal level and at the 
+instance level. Both of these configurations are covered in this section.
 
 ### Configuring Adaptive Media Settings for the Portal
 
@@ -126,8 +103,8 @@ Click the plus sign to add a new image variant. Fill out the form with the image
 variant information and click *Save*.
 
 These image variants are now the default values across the Portal. You can 
-override the default values by configuring the Adaptive Media settings at the 
-instance level. You can learn how to do this next.
+override these default values by configuring the Adaptive Media settings at the 
+instance level.
 
 ### Configuring Adaptive Media Settings for an Instance
 
@@ -162,4 +139,4 @@ Clicking on the Actions menu next to a resolution gives you the option to *Edit*
 or *Delete* the resolution. You can also delete multiple resolutions at once. 
 Click the checkbox next to each resolution that you want to delete, or click the 
 *All* checkbox at the upper left corner to select all resolutions, and click the 
-X button that appears in the upper right corner to delete the resolutions.
+X button that appears in the upper right corner to delete them.
