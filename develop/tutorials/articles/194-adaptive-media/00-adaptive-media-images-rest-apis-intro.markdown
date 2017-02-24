@@ -1,312 +1,365 @@
-Adaptive Media Images REST API
+# Adaptive Media Images REST API [](id=adaptive-media-images-rest-api)
 
-This document sums up all the details concerning Adaptive Media Images REST API. This API allows developers to use almost all of the functionality of the Adaptive Media Liferay App.
+The Adaptive Media Images Rest API allows developers to use several of the
+features available in the Adaptive Media Liferay App.
 
-[[TOC]]
+This tutorial explains how to use these APIs to retrieve information about
+Adaptive Media images. This tutorial is organized by the available endpoints of
+the API. Each endpoint is listed with examples, HTTP status codes, and query
+parameters (if the endpoint has any).
 
-# Introduction
+In order to use these APIs you must deploy all the Adaptive Media modules,
+excluding the *-test* ones, found in the [https://github.com/liferay/com-liferay-adaptive-media](https://github.com/liferay/com-liferay-adaptive-media)
+repository.
 
-In order to use/test this API you will need to:
++$$$
 
-- Deploy all adaptive media modules
+**Note:** If you want to auto-generate test data you can use the
+[*adaptive-media-demo* module](https://github.com/liferay/com-liferay-adaptive-media/tree/master/adaptive-media-demo).
+To use this demo module, you'll need to deploy the following additional modules:
+[*users-admin-demo-data-creator-api* module](https://github.com/liferay/liferay-portal/tree/master/modules/apps/foundation/users-admin/users-admin-demo-data-creator-api),
+*users-admin-demo-data-creator-impl* module](https://github.com/liferay/liferay-portal/tree/master/modules/apps/foundation/users-admin/users-admin-demo-data-creator-impl), [*document-library-demo-data-creator-api* module](https://github.com/liferay/liferay-portal/tree/master/modules/apps/collaboration/document-library/document-library-demo-data-creator-api), and [*document-library-demo-data-creator-impl* module](https://github.com/liferay/liferay-portal/tree/master/modules/apps/collaboration/document-library/document-library-demo-data-creator-impl).
 
-- *Optional:* if you want to auto-generate test data you can use the
-*"adaptive-media-demo"* module. For using this demo you’ll need to deploy the
-following modules:
+$$$
 
-    - *users-admin-demo-data-creator* (both api and implementation)
+Go ahead and get started.
 
-    - *document-library-demo-data-creator *(both api and implementation)
+## API Endpoints [](id=api-endpoints)
 
-- Once the app is running you can consumed using the endpoints listed in
-[endpoints](#heading=h.ekgnoyx0qtbs) using curl or other HTTP client. One client
-really simple to use is [Advance Rest Client](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo), available as a Google Chrome APP. On Firefox you can use [REST Easy](https://addons.mozilla.org/en-US/firefox/addon/rest-easy/).
+Once the Adaptive Media app is running, you can consume the data using the
+endpoints listed in the
+[API Endpoints](#api-endpoints) section using curl, a browser based client, such as
+Google Chrome's [Advance Rest Client](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo)
+or Firefox's [REST Easy](https://addons.mozilla.org/en-US/firefox/addon/rest-easy/),
+or another HTTP client of your choice.
 
-    - If you want to use Advance Rest Client you can follow [this video](https://drive.google.com/open?id=0B1weV2REHIZca3VWTkIxbzJOVU0) to
-    learn how to use it with the Adaptive Media API.
+The root endpoint for Adaptive Media is `/o/adaptive-media-rest/images` by
+default. So, for example, if your server address is `http://localhost:8080/`
+the API you’ll need to consume is:
+`http://localhost:8080/o/adaptive-media-rest/images`
 
-# Endpoints
+Adaptive Media's API endpoints are divided by functionality, resulting in two
+main parts:
 
-Root endpoint for Adaptive Media is /o/adaptive-media-rest/images by default. So,
-for example, if your server address is [http://www.example.com](http://www.example.com)
-the API you’ll need to consume is: [http://www.example.com/o/adaptive-media-rest/images](http://www.example.com/o/adaptive-media-rest/images)
+- */configuration:* Create, read, update, and delete existing Adaptive Media
+image configurations.
 
-The API endpoints has been divided by functionality, resulting in two parts:
+- */content:* Retrieve both Adaptive Media data and metadata about existing
+Adaptive Media images.
 
-- */configuration:* Here are all the endpoints related with configuration. It’s
-basically a simple CRUD.
+You can learn how to use the */configuration* endpoint next.
 
-- */content:* The content part, where the user can request both AM data and
-metadata.
+## Configuration [](id=configuration)
 
-## Configuration
+The following requests are possible through the */configuration* endpoint:
 
-Configuration request are made through */configuration* endpoint. Here we have
-this possible requests:
+### List All Available Configurations [](id=list-all-available-configurations)
 
-### List all available configurations
+Below is an example request pattern:
 
-<table>
-  <tr>
-    <td>GET / </td>
-    <td>STATUS CODES: 200, 500</td>
-  </tr>
-  <tr>
-    <td>[
-{
-"name": "Extra large demo size",
-"id": "demo-xlarge",
-"max-width": "1200",
-"max-height": "1200"
-},
-{
-"name": "Extra small demo size",
-"id": "demo-xsmall",
-"max-width": "50",
-"max-height": "50"
-},
-{
-"name": "Large demo size",
-"id": "demo-large",
-"max-width": "800",
-"max-height": "800"
-}
-]</td>
-    <td></td>
-  </tr>
-</table>
+    GET [server address]/o/adaptive-media-rest/images/configuration
 
+**Status Codes**
 
-### Get some configuration by its id
+200<br />
+500
 
-<table>
-  <tr>
-    <td>GET /:configurationId</td>
-    <td>STATUS CODES: 200, 404 (Non-existent configuration)</td>
-  </tr>
-  <tr>
-    <td>{
-"name": "Small demo size",
-"id": "demo-small",
-"max-width": "100",
-"max-height": "100"
-}</td>
-    <td></td>
-  </tr>
-</table>
+Below is an example response object:
 
+    [
+    {
+    "name": "Extra large demo size",
+    "id": "demo-xlarge",
+    "max-width": "1200",
+    "max-height": "1200"
+    },
+    {
+    "name": "Extra small demo size",
+    "id": "demo-xsmall",
+    "max-width": "50",
+    "max-height": "50"
+    },
+    {
+    "name": "Large demo size",
+    "id": "demo-large",
+    "max-width": "800",
+    "max-height": "800"
+    }
+    ]
 
-### Add a new configuration
+### Get a Configuration by its ID [](id=get-a-configuration-by-its-id)
 
-<table>
-  <tr>
-    <td>PUT /:configurationId</td>
-    <td>STATUS CODES: 200, 400 (wrong body), 403 (user without permission)</td>
-  </tr>
-  <tr>
-    <td>BODY:
-{
-  "name": "Small Size",
-  "max-height": 100,
-  "max-width": 100
-}</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>{
-"name": "Small Size",
-"id": "small",
-"max-height": "100",
-"max-width": "100"
-}</td>
-    <td></td>
-  </tr>
-</table>
+Below is an example request pattern:
 
+    GET [server address]/o/adaptive-media-rest/images/[configurationId]
 
-### Delete configuration
+**Status Codes**
 
-<table>
-  <tr>
-    <td>DELETE /:configurationId</td>
-    <td>STATUS CODES: 200, 403 (user without permission)</td>
-  </tr>
-  <tr>
-    <td>BODY:
-{
-  "name": "Small Size",
-  "max-height": 100,
-  "max-width": 100
-}</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>{
-"name": "Small Size",
-"id": "small",
-"max-height": "100",
-"max-width": "100"
-}</td>
-    <td></td>
-  </tr>
-</table>
+200<br />
+404 (Non-existent configuration)
 
+Below is an example response object:
 
-## Content
+    {
+    "name": "Small demo size",
+    "id": "demo-small",
+    "max-width": "100",
+    "max-height": "100"
+    }
 
-On the other hand, content request must be made through the /content endpoint.
-Then the next thing you need to do is select the image whose adaptive medias you
-want to recover. For that, you have two possible ways: by fileEntryId or by
-fileVersionId.
+### Add a New Configuration [](id=add-a-new-configuration)
 
-- */content/file/:***_fileEntryId_***/version/:***_version_**: you’ll need to
-provide the fileEntryId alongside with the version name. This version name will
-be a string like: 1.0, 1.2, 2.3, etc. Or you can use a special name "last" which
-will give you the last version for that file entry.
+Below is an example request pattern:
 
-- */content/version/:***_fileVersionId_**: or also, you can provide the
-fileVersionId directly and get the same file as the one you would get going to
-the previous endpoint.
+    PUT [server address]/o/adaptive-media-rest/images/[configurationId]
 
-Once you are "inside" one fileVersion endpoint you have available the following
-ways of getting data:
+**Status Codes**
 
-## Config
+200<br />
+400 (wrong body)<br />
+403 (user without permission)
 
-*/config* endpoint allows developers to get the image generated by a certain
-configuration from a fileVersion. If no data is found the API will return the
-original bytes (this behaviour can be rejected by passing by an "*original*"
-query param with value “*false*”.
+Below is an example request:
 
-<table>
-  <tr>
-    <td>GET
-/content/file/:fileEntryId/version/:version/config/:configId
-/content/:fileVersionId/config/:configId</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>STATUS CODES: 200, 403 (user without permission), 404 (fileVersion, fileEntry or configuration not found)</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Query params:
-original - boolean - if true the original image bytes will be used as fallback</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
+    PUT [server address]/o/adaptive-media-rest/images/small
 
+    BODY:
+    {
+    "name": "Small Size",
+    "max-height": 100,
+    "max-width": 100
+    }
 
-## Data
+Here is the resulting configuration:
 
-If you don’t know the config id, or you don’t want to specify it, you can use
-the */data* endpoint. This endpoint receives a query where you specify the
-properties of the image you want: e.g. width near 200px and height near 500px.
-This query is received in the form of a query array param (*query=parameter:value*),
-so, for the previous example, the list of query params should be:
+    {
+    "name": "Small Size",
+    "id": "small",
+    "max-height": "100",
+    "max-width": "100"
+    }
 
-**_?query=width:200&query=height:500_**
+### Delete a Configuration [](id=delete-a-configuration)
 
-if you want to retrieve an adaptive media version of the image close to 200px
-width, using 500px height to resolve ambiguities.
+Below is an example request pattern:
 
-Also, you have available the original query param too. So, if no adaptive media
-can be found for this file version, the original bytes will serve as fallback.
+    DELETE [server address]/o/adaptive-media-rest/images/[configurationId]
 
-<table>
-  <tr>
-    <td>GET
-/content/file/:fileEntryId/version/:version/data
-/content/:fileVersionId/data</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>STATUS CODES: 200, 403 (user without permission), 400 (wrong or undefined query), 404 (fileVersion, fileEntry or no data found)</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Query params:
-original - boolean - if true the original image bytes will be used as fallback
-query - string - properties requested for this data in the form of "property:value". It can be more than one of this parameters.</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
+**Status Codes**
 
+200<br />
+403 (user without permission)
 
-## Variants
+Below is an example request:
 
-And last, but not least, we have the */variants* endpoint. Use this endpoint to
-retrieve the list of adaptive medias created from a fileVersion with all its
-metadata in a JSON format. You have available the same "*query*" param as in
-the* /data* endpoint and also, an *order* param (opposite to query, so don’t use
-  them both at the same time) with a similar form that allow you to perform a
-  strict order of the data: *order=property:true|false* (ascendent or not). For
-  example:
+    DELETE [server address]/o/adaptive-media-rest/images/small
 
-**_?query=width:200&query=height:500_**
+    BODY:
+    {
+    "name": "Small Size",
+    "max-height": 100,
+    "max-width": 100
+    }
 
-if you want to retrieve an adaptive media version of the image close to 200px
-width, using 500px height to resolve ambiguities.
+Here is the resulting deleted configuration:
 
-<table>
-  <tr>
-    <td>GET
-/content/file/:fileEntryId/version/:version/variants
-/content/:fileVersionId/variants</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>STATUS CODES: 200, 403 (user without permission), 400 (wrong or undefined query, wrong or undefined order or both provided), 404 (fileVersion, fileEntry not found)</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Query params:
-original - boolean - if true the original image bytes will be used as fallback
-query - string - properties requested for this data in the form of "property:value". It can be more than one of this parameters.
-order - string - property order requested for this data in the form of “property:true|false”. It can be more than one of this parameters. The boolean on the right will mean true (for ascendant order) or false otherwise.</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>[
-{
-"url": "http://localhost:8080/o/adaptive-media-rest/images/content/version/37278/config/demo-medium",
-"configuration": {
-"name": "Medium size",
-"id": "demo-medium",
-"max-width": "400",
-"max-height": "400"
-},
-"content-length": 15024,
-"width": 400,
-"content-type": "image/jpeg",
-"file-name": "d3998933-8a4a-46bb-babd-fd5f8f72de23.jpeg",
-"configuration-uuid": "demo-medium",
-"height": 225
-},
-{
-"url": "http://localhost:8080/o/adaptive-media-rest/images/content/version/37278/config/demo-small",
-"configuration": {
-"name": "Small demo size",
-"id": "demo-small",
-"max-width": "100",
-"max-height": "100"
-},
-"content-length": 2093,
-"width": 100,
-"content-type": "image/jpeg",
-"file-name": "d3998933-8a4a-46bb-babd-fd5f8f72de23.jpeg",
-"configuration-uuid": "demo-small",
-"height": 56
-}
-]</td>
-    <td></td>
-  </tr>
-</table>
+    {
+    "name": "Small Size",
+    "id": "small",
+    "max-height": "100",
+    "max-width": "100"
+    }
+
+Now that you know how to use the */configuration* endpoint, you can learn how to
+use the */content* endpoint next.
+
+## Content Endpoint [](id=content-endpoint)
+
+To use the */content* endpoint you must first choose the Adaptive Media
+image you want to recover. You can specify an adaptive media image via two
+possible forms of ID: `fileEntryId` or `fileVersionId`.
+<!-- Where can I find this information for the Adaptive Media images? -->
+
+If you use the `fileEntryId`, You’ll need to provide the `fileEntryId` along
+with the version name. The version name is a string (1.0, 1.2, 2.3, etc.).
+<!-- Where can I find the version name? -->
+
+Below is an example request pattern that uses the `fileEntryId`:
+
+  [server address]/o/adaptive-media-rest/images/content/file/**fileEntryId**/version/**version**
+
+You can also use the keyword `last` to retrieve the last version of the file
+entry:
+
+  [server address]/o/adaptive-media-rest/images/content/file/**fileEntryId**/version/last
+
+Using the `fileVersionId` allows you to directly retrieve the Adaptive
+Media image, without the need of a version name:
+
+  [server address]/o/adaptive-media-rest/images/content/**fileVersionId**
+
+Once you've specified a file version, you can use a few additional endpoints to
+get data on the image variants.
+
+You can learn how to use the */config* endpoint next.
+
+### Config Endpoint [](id=config-endpoint)
+
+The */config* endpoint uses a `fileVersion` to retrieve an image generated by a
+certain configuration. If no data is found, the API will return the original
+image. You can prevent this behavior by passing an *original* query param with
+value *false* (*?query=original:false*).
+
+**Status Codes**
+
+200<br />
+403 (user without permission)<br />
+404 (fileVersion, fileEntry or configuration not found)
+
+**Query params**
+
+`original:boolean`: If the value is `true`, the original image is used as
+fallback.
+
+Below is an example request pattern using the `fileEntryId`:
+
+    GET [server address]/o/adaptive-media-rest/images/content/file/[fileEntryId]/version/[version]/config/[configId]
+
+Here is a request pattern that uses the `fileVersionId`:
+
+    GET [server address]/o/adaptive-media-rest/images/content/[fileVersionId]/config/[configId]
+
+Now that you know how to use the */config* endpoint, you can learn about the
+*/data* endpoint next.
+
+### Data Endpoint [](id=data-endpoint)
+
+If you don’t know the config ID, or you don’t want to specify it, you can use
+the */data* endpoint. This endpoint receives a query array param
+(*query=parameter:value*) that specifies the properties of the image you want
+(e.g. width near 200px and height near 500px).
+
+**Status Codes**
+
+200<br />
+403 (user without permission)<br />
+400 (wrong or undefined query)<br />
+404 (fileVersion, fileEntry or no data found)
+
+**Query params**
+
+`original:boolean`: If the value is `true`, the original image is used as
+fallback.
+
+`string`: Used to pass properties of the image in the form of *property:value*.
+Queries can be passed for each image property.
+
+For example, if you want to retrieve an Adaptive Media version of the image
+close to 200px width, using 500px height to resolve ambiguities, you would use
+the following list of query params:
+
+    ?query=width:200&query=height:500
+
+Below is an example request pattern using the `fileEntryId`:
+
+    GET [server address]/o/adaptive-media-rest/images/content/file/[fileEntryId]/version/[version]/data?query=width:200&query=height:500
+
+Here is a request pattern that uses the `fileVersionId`:
+
+    GET [server address]/o/adaptive-media-rest/images/content/[fileVersionId]/data?query=width:200&query=height:500
+
+Here is a request pattern that adds the *original* query to the previous request:
+
+    GET [server address]/o/adaptive-media-rest/images/content/[fileVersionId]/data?query=width:200&query=height:500&query=original:true
+
+You can learn how to use the */variants* endpoint next.
+
+### Variants Endpoint [](id=variants-endpoint)
+
+The */variants* endpoint lets you retrieve the list of Adaptive Medias created
+from a file version, with all its metadata in a JSON format. In addition to the
+*query* param, and *original* param, you also have an *order* param
+(opposite to query, so you can't use both at the same time) that
+allows you to perform a strict order of the data: *order=property:true|false*
+(ascending or descending).
+
+**Status Codes**
+
+200<br />
+403 (user without permission)<br />
+400 (wrong or undefined query, wrong or undefined order or both provided)<br />
+404 (fileVersion, fileEntry not found)
+
+**Query params**
+
+`original:boolean`: If the value is `true`, the original image is used as
+fallback.
+
+`query`, `string`: Used to pass properties of the image in the form of
+*query=property:value*. Queries can be passed for each image property.
+
+`order`, `string:boolean`: Sets the order of the requested data in the form of
+*order=property:true|false* (`true` for ascending, or `false` for descending).
+This parameter can be passed for each image property.
+<!-- Is that correct? -->
+
+For example, if you want to retrieve image variants of an image in ascending
+order by height, you would use the following query:
+
+    ?order=height:true
+
+Below is an example request pattern that uses the `fileEntryId`:
+
+    GET [server address]/o/adaptive-media-rest/images/content/file/[fileEntryId]/version/[version]/variants
+
+Below is an example request pattern that uses the `fileVersionId`:
+
+    GET [server address]/o/adaptive-media-rest/images/content/[fileVersionId]/variants
+
+Here is a request that adds the *order* parameter to the previous request:
+
+GET [server address]/o/adaptive-media-rest/images/content/[fileVersionId]/variants?order=height:true
+
+Below is an example response JSON object:
+
+    [
+    {
+    "url": "http://localhost:8080/o/adaptive-media-rest/images/content/version/37278/config/demo-medium",
+    "configuration": {
+    "name": "Medium size",
+    "id": "demo-medium",
+    "max-width": "400",
+    "max-height": "400"
+    },
+    "content-length": 15024,
+    "width": 400,
+    "content-type": "image/jpeg",
+    "file-name": "d3998933-8a4a-46bb-babd-fd5f8f72de23.jpeg",
+    "configuration-uuid": "demo-medium",
+    "height": 225
+    },
+    {
+    "url": "http://localhost:8080/o/adaptive-media-rest/images/content/version/37278/config/demo-small",
+    "configuration": {
+    "name": "Small demo size",
+    "id": "demo-small",
+    "max-width": "100",
+    "max-height": "100"
+    },
+    "content-length": 2093,
+    "width": 100,
+    "content-type": "image/jpeg",
+    "file-name": "d3998933-8a4a-46bb-babd-fd5f8f72de23.jpeg",
+    "configuration-uuid": "demo-small",
+    "height": 56
+    }
+    ]
+
+Now you know how to use Adaptive Media images rest APIs to get the information
+you're looking for!
+
+## Related Topics [](id=related-topics)
+
+[Item Selector](/develop/tutorials/-/knowledge_base/7-0/item-selector)
+
+<!--[Adaptive Media UserGuide](link to go here)-->
