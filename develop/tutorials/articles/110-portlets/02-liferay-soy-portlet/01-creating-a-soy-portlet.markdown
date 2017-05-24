@@ -375,7 +375,7 @@ which demonstrates the features covered in this section:
 If your view has JavaScript logic associated with it, you must create a
 corresponding `*es.js` file (usually with the same name) that imports
 the Soy templates the view requires and registers the view as a MetalJS
-component. For example, here is the [`View.es.js` component](https://github.com/liferay/liferay-portal/blob/master/modules/apps/foundation/hello-soy/hello-soy-web/src/main/resources/META-INF/resources/View.es.js)
+component. For example, here is the [`View.es.js` component](https://github.com/liferay/liferay-portal/blob/7.0.x/modules/apps/foundation/hello-soy/hello-soy-web/src/main/resources/META-INF/resources/View.es.js)
 for `com.liferay.hello.soy.web` portlet's `View.soy` template:
 
     import Component from 'metal-component/src/Component';
@@ -394,6 +394,48 @@ for `com.liferay.hello.soy.web` portlet's `View.soy` template:
     Soy.register(View, templates);
 
     export default View;
+    
+## Setting STATE Properties
+
+If your view has properties defined, **you must define the default value for 
+them in the `View.STATE` object.** This object is rendered client-side and 
+contains the portlet's data. For example if your view contains the following 
+configuration:
+
+    class View extends Component {
+    	setOnlineServerCount() {
+    		return 147;
+    	};
+
+    	setServerCountDifference() {
+    		return 3;
+    	}
+    }
+    
+you would have to add the following configuration to the `View.STATE` object:
+
+    View.STATE = {
+    	onlineServerCount: {
+    		setter: 'setOnlineServerCount',
+    		value: 0
+    	},
+    	serverCountDifference: {
+    		setter: 'setServerCountDifference',
+    		value: 0
+    	}
+    };
+    
+This sets the default values for the `onlineServerCount` and 
+`serverCountDifference` to `0`.
+
++$$$
+
+**Note:** Soy Portlets are automatically registered using the 
+[`Liferay.component` API](https://github.com/liferay/liferay-portal/blob/7.0.x/modules/apps/foundation/portal-template/portal-template-soy/src/main/resources/com/liferay/portal/template/soy/utils/dependencies/bootstrap.js.tpl). 
+To update the component, you can retrieve your portlet and set the state 
+properties.
+
+$$$
 
 As you can see, it's pretty easy to use Soy templates for your view layer.
 
