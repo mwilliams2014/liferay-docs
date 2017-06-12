@@ -1,8 +1,10 @@
 # Migrating Documents and Media Thumbnails to Adaptive Media [](id=migrating-documents-and-media-thumbnails-to-adaptive-media)
 
-Adaptive Media images can greatly improve the user experience across all devices. 
-You can provide this same experience in Documents and Media by migrating 
-existing Documents and Media thumbnails to adaptive images. 
+Adaptive Media creates a separate version of your uploaded images for each image 
+resolution that you specify, ensuring that the viewer receives an image that 
+caters to their device and doesn't waste their data. You can provide this same 
+optimized user experience in Documents and Media by migrating existing Documents 
+and Media thumbnails to adaptive images. 
 
 This tutorial walks you through the process of migrating your Documents and 
 Media thumbnails to adaptive images.
