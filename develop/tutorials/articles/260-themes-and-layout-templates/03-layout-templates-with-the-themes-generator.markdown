@@ -1,4 +1,4 @@
-# Layout Templates with the Liferay Theme Generator Test Edit [](id=creating-layout-templates-with-the-themes-generator-0)
+# Layout Templates with the Liferay Theme Generator Test Edit 2 [](id=creating-layout-templates-with-the-themes-generator-0)
 
 Layout Templates specify how content is arranged on your site pages in @product@.
 For example, take a look at the *1-2-1 Columns Layout CE* layout shown below:
