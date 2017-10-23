@@ -1,0 +1,4 @@
+Bundle-Name: my-editor-contributor
+Bundle-SymbolicName: com.liferay.docs.myeditoraddition
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.docs.myeditoraddition.constants
