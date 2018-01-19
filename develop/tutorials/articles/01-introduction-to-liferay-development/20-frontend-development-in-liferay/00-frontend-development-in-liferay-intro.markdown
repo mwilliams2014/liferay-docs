@@ -1,47 +1,65 @@
 # Introduction to Front-End Development [](id=introduction-to-frontend-development)
 
-When approaching the development of your application's front-end, @product@ 
-offers a wide range of approaches, frameworks, utilities, and mechanisms to make 
-your life easier.
+When approaching your application's front-end, @product@ offers a wide range of 
+approaches, frameworks, utilities, and mechanisms to make your life easier.
 
 ## JavaScript [](id=javascript)
 
-If you've used Liferay in the past, you can of course continue to use Liferay's
-venerable Alloy UI, but you are also free to use the front-end technologies you
-love the most:
+If you've used @product@ in the past, you can of course continue to use 
+Liferay's venerable Alloy UI, but you are also free to use the front-end 
+technologies you love the most:
 
--   EcmaScript 2015
--   Metal.js (developed by Liferay)
--   AlloyUI (developed by Liferay)
+-   EcmaScript ES2015+
+-   [Metal.js](https://metaljs.com/) (developed by Liferay)
+-   [AlloyUI](https://alloyui.com/) (developed by Liferay)
 -   jQuery (included)
 -   Lodash (included)
 
-## Lexicon [](id=lexicon)
+## Loaders
 
-@product@ follows a design language created by our designers called Lexicon. It
-is automatically available to application developers through a set of CSS
-classes, or our tag library.
+To load modules in @product@, you must know when they are needed, where they are 
+located at build time, if you want to bundle them together or load them 
+independently, and you must assemble them at runtime. Keeping track of these 
+tasks can be a hassle. @product@'s Loaders (YUI/AUI and AMD) handle loading for 
+you, so you don't have to worry about all the details. @product@'s loaders are 
+versatile, letting you use YUI/AUI modules, AMD modules, and npm modules 
+(in AMD format). Just provide a small bit of information about your module and 
+@product@'s loaders take care of the rest.
+
+## Lexicon and Clay [](id=lexicon)
+
+@product@ uses its own design language, called 
+[Lexicon](https://lexicondesign.io/docs/lexicon/), to provide a common framework 
+for building consistent UIs and user experiences across the Liferay product 
+ecosystem. The web implementation of Lexicon (CSS, JS, and HTML) is called 
+[Clay](https://claycss.com/docs/clay/). It is automatically available to 
+application developers through a set of CSS classes, or our tag library. 
 
 ## Templates [](id=templates)
 
-For templating, Java EE's JSP is there as expected as well as FreeMarker, but the
-platform's modularity enables using Google's Soy (aka Closure Templates) or
-whatever else you like.
+For templating, Java EE's JSP is there as expected as well as FreeMarker, but 
+the platform's modularity enables using Google's Soy (aka Closure Templates), 
+JSX templates, or whatever else you like. 
 
 ## Themes [](id=themes)
 
-A Liferay Theme is the overall look and feel for a site. Themes are a
+A @product@ Theme provides the overall look and feel for a site. Themes are a
 combination of CSS, JavaScript, HTML, and FreeMarker templates. Although the
 default themes are nice, you may wish to create your own look and feel for your
 site.
 
-In @product@, Liferay provides an easy-to-use tool called the [Liferay Theme Generator](/develop/tutorials/-/knowledge_base/7-0/themes-generator)
-that helps automate the theme development process.
-
-Themes created with the Liferay Theme Generator give you access to [theme gulp tasks](/develop/reference/-/knowledge_base/7-0/theme-gulp-tasks)
-that offer basic functions, such as `build` and `deploy`, along with 
-more complex interactions, such as auto deploying when a change is made and
-setting the base theme.
+From the 
+[Theme Builder Gradle Plugin](/develop/reference/-/knowledge_base/7-1/theme-builder-gradle-plugin), 
+to the 
+[Liferay Theme Generator](/develop/tutorials/-/knowledge_base/7-1/themes-generator), 
+to 
+[@ide@](/develop/tutorials/-/knowledge_base/7-1/creating-themes-with-liferay-ide), 
+to 
+[Blade CLI](/develop/tutorials/-/knowledge_base/7-1/blade-cli)'s 
+[Theme Template](/develop/reference/-/knowledge_base/7-1/theme-template), 
+@product@ gives you a variety of tools and environments to choose from, leaving 
+you free to choose the option you're most comfortable with so you can focus on 
+creating a well designed theme.
 
 ## Front-End Extensions [](id=frontend-extensions)
 
@@ -51,7 +69,7 @@ the stability, conformity, and future evolution of your applications.
 
 Below are some of the available front-end extensions:
 
-- [Theme Contributors](/develop/tutorials/-/knowledge_base/7-0/theme-contributors)
-- [Context Contributors](/develop/tutorials/-/knowledge_base/7-0/context-contributors)
-- [Portlet Decorators](/develop/tutorials/-/knowledge_base/7-0/portlet-decorators)
-- [Editor Config Contributors](/develop/tutorials/-/knowledge_base/7-0/modifying-an-editors-configuration)
+- [Theme Contributors](/develop/tutorials/-/knowledge_base/7-1/theme-contributors)
+- [Context Contributors](/develop/tutorials/-/knowledge_base/7-1/context-contributors)
+- [Portlet Decorators](/develop/tutorials/-/knowledge_base/7-1/portlet-decorators)
+- [Editor Config Contributors](/develop/tutorials/-/knowledge_base/7-1/modifying-an-editors-configuration)
