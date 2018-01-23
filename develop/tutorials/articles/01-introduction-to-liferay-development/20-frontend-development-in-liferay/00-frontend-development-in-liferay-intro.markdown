@@ -26,6 +26,20 @@ versatile, letting you use YUI/AUI modules, AMD modules, and npm modules
 (in AMD format). Just provide a small bit of information about your module and 
 @product@'s loaders take care of the rest.
 
+## npm
+
+You can use npm in your portlets. To do this, you must create an OSGi 
+bundle with all the npm dependencies extracted and modified to work with the 
+Liferay AMD Loader. Luckily, @product@'s `liferay-npm-bundler` is built for just 
+this purpose, and even provides several presets for common module types 
+(AMD, react, Angular JS,  etc.) to save you time. 
+
+Simply include the `liferay-npm-bundler` in your project, and With just a small 
+amount of configuration, the `liferay-npm-bundler` bundles your portlet for OSGi 
+and transpiles your code for the Liferay AMD Loader, which lets you share 
+JavaScript modules and take advantage of semantic versioning among portlets that 
+use the same npm modules on the page.
+
 ## Lexicon and Clay [](id=lexicon)
 
 @product@ uses its own design language, called 
