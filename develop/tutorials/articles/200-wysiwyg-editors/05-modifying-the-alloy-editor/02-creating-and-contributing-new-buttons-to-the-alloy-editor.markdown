@@ -305,4 +305,4 @@ AlloyEditor!
 
 [Adding New Behavior to an Editor](/develop/tutorials/-/knowledge_base/7-1/adding-new-behavior-to-an-editor)
 
-[Embedding Content into the Alloy Editor](/develop/tutorials/-/knowledge_base/7-1/embedding-content-in-the-alloy-editor)
+[Embedding Content into the AlloyEditor](/develop/tutorials/-/knowledge_base/7-1/embedding-content-in-the-alloy-editor)

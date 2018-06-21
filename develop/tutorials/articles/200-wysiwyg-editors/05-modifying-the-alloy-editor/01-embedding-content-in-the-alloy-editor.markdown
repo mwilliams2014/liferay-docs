@@ -1,14 +1,14 @@
-# Embedding Content in the Alloy Editor [](id=embedding-content-in-the-alloy-editor)
+# Embedding Content in the AlloyEditor [](id=embedding-content-in-the-alloy-editor)
 
 Whether it's a video from a popular streaming service, or an entertaining 
 podcast, embedded content is commonplace on the web. Sharing content from a 
 third party is sometimes required to properly cover a topic. The `EmbedProvider` 
-mechanism lets you embed third party content in the Alloy Editor, while writing 
+mechanism lets you embed third party content in the AlloyEditor, while writing 
 blog posts, web content articles, etc. By default, the `EmbedProvider` mechanism 
 is only configured for embedding video content 
-(Facebook, Twitch, Vimeo, and YouTube) into the Alloy Editor. This tutorial 
-shows how to include additional video providers, and even add support for 
-additional content types. 
+(Facebook, Twitch, Vimeo, and YouTube) into the AlloyEditor. This tutorial shows 
+how to include additional video providers, and even add support for additional 
+content types. 
 
 An `EmbedProvider` requires four pieces of information:
 
@@ -111,18 +111,18 @@ Follow these steps to create an `*EmbedProvider`:
         	};
         }
 
-10.  Deploy your module and open an app that uses the Alloy Editor, such as 
+10.  Deploy your module and open an app that uses the AlloyEditor, such as 
      Blogs, and create a new entry. Click the *add button* and select the video 
      button---or your new content type button---and paste the content's URL. 
      Click the *checkmark* to confirm that the URL scheme is supported. The 
      content is embedded into the editor. 
 
-Now you know how to embed content in the Alloy Editor. Create a new content 
+Now you know how to embed content in the AlloyEditor. Create a new content 
 entry, such as a blog post, and click the embed video button---or the one you 
 created---and paste the content's URL. 
 
 ## Related Topics [](id=related-topics)
 
-[Creating and Contributing New Buttons to the Alloy Editor](/develop/tutorials/-/knowledge_base/7-1/creating-and-contributing-new-buttons-to-alloyeditor)
+[Creating and Contributing New Buttons to the AlloyEditor](/develop/tutorials/-/knowledge_base/7-1/creating-and-contributing-new-buttons-to-alloyeditor)
 
 [Adding New Behavior to an Editor](/develop/tutorials/-/knowledge_base/7-1/adding-new-behavior-to-an-editor)
