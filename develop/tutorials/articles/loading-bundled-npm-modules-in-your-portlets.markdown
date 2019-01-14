@@ -9,14 +9,19 @@ You can load the npm module in your portlet using the
 
 Follow these steps:
 
-1.  Make sure the `<liferay-frontend:defineObjects />` tag is included in your 
+1.  Provide a `Web-ContextPath` in your bundle's `bnd.bnd` file:
+
+        Web-ContextPath: /my-module-web
+
+2.  Make sure the `<liferay-frontend:defineObjects />` tag is included in your 
     portlet's `init.jsp`. This makes the `npmResolvedPackageName` variable 
     available, setting it to your project module's resolved name. For instance, 
     if your module is called `my-module` and is at version `2.3.0`, the implicit 
     variable `npmResolvedPackageName` is set to `my-module@2.3.0`. This lets you 
-    prefix any JS module require or soy component rendering with this variable.
+    prefix any JS module `require` or soy component rendering with this 
+    variable.
     
-2.  Use the `npmResolvedPackageName` variable along with the relative path to 
+3.  Use the `npmResolvedPackageName` variable along with the relative path to 
     your JavaScript module file to create an alias in the `<aui:script>`'s 
     `require` attribute. An example configuration is shown below:
     
@@ -26,7 +31,7 @@ Follow these steps:
 
         </aui:script>
 
-3.  Now you can use the alias inside the `aui:script`:
+4.  Use the alias inside the `aui:script` to refer to your module:
 
         <aui:script 
           require='<%= npmResolvedPackageName + 
