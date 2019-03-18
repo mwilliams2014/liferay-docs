@@ -48,13 +48,14 @@ interface. Follow these steps to modify one of @product@'s WYSIWYG editors:
 6.  Specify the editor's name, editor's configuration key, and/or the portlet 
     name(s) where the editor resides. These three properties can be specified 
     independently, or together, in any order. See the 
-    [`EditorConfigContributor`](@platform-ref@/7.1-latest/javadocs/portal-kernel/com/liferay/portal/kernel/editor/configuration/EditorConfigContributor.html) interface's Javadoc for more information about 
-    the available properties and how to use them. The example configuration 
-    below modifies the AlloyEditor's Content Editor, identified by the 
-    `contentEditor` configuration key and `alloyeditor` name key. Two portlet 
-    names are declared (Blogs and Blogs Admin), specifying that the service 
-    applies to the content editors in those portlets. Lastly, the configuration 
-    overrides the default one by providing a higher 
+    [`EditorConfigContributor`](@platform-ref@/7.1-latest/javadocs/portal-kernel/com/liferay/portal/kernel/editor/configuration/EditorConfigContributor.html) 
+    interface's Javadoc for more information about the available properties and 
+    how to use them. The example configuration below modifies the AlloyEditor's 
+    Content Editor, identified by the `contentEditor` configuration key and 
+    `alloyeditor` name key. Two portlet names are declared (Blogs and Blogs 
+    Admin), specifying that the service applies to the content editors in those 
+    portlets. Lastly, the configuration overrides the default one by providing a 
+    higher 
     [service ranking](/develop/tutorials/-/knowledge_base/7-1/fundamentals#services):
 
         @Component(
@@ -68,6 +69,20 @@ interface. Follow these steps to modify one of @product@'s WYSIWYG editors:
             service = EditorConfigContributor.class
         )
 
+    +$$$
+    
+    **Note:** If you're targeting all editors for a portlet, the 
+    `editor.config.key` is not required. For example, if you just want to target 
+    the Web Content portlet's editors, you can provide the configuration below:
+    
+        @Component(
+        property = {"editor.name=ckeditor",
+        "javax.portlet.name=com_liferay_journal_web_portlet_JournalPortlet",
+        "service.ranking:Integer=100"
+        }
+    
+    $$$
+    
 7.  Override the `populateConfigJSONObject()` method to provide the custom 
     configuration for the editor. This method updates the original configuration 
     JSON object. It can also Update or delete existing configurations, or any 
