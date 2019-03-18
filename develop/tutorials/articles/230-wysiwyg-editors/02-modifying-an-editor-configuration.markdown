@@ -44,7 +44,7 @@ provided below.
     [EditorConfigContributor](@platform-ref@/7.0-latest/javadocs/portal-kernel/com/liferay/portal/kernel/editor/configuration/EditorConfigContributor.html)
     interface.
 
-    The following code is a sample of what the `@Component` annotation could
+    The following code is a sample of what the `@Component` annotation could 
     look like when modifying an editor's configuration:
 
         @Component(
@@ -63,6 +63,20 @@ provided below.
     to all editors in those portlets. Lastly, the service ranking is listed,
     which prioritizes this service over others that are currently deployed in
     @product@.
+
+    +$$$
+    
+    **Note:** If you're targeting all editors for a portlet, the 
+    `editor.config.key` is not required. For example, if you just want to target 
+    the Web Content portlet's editors, you can provide the configuration below:
+    
+        @Component(
+          property = {"editor.name=ckeditor",
+          "javax.portlet.name=com_liferay_journal_web_portlet_JournalPortlet",
+          "service.ranking:Integer=100"
+        }
+    
+    $$$
 
 4.  Now that you've specified which editor configurations you want to modify,
     you must specify what about them must change. Add the following method to
