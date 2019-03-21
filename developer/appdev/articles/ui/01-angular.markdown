@@ -7,17 +7,26 @@ process.
 
 Follow these steps:
 
-1. Install the Liferay Bundle Generator, if it's not already installed.
+1.  Install the Liferay Bundle Generator and its dependencies with the command 
+    below, if they're not already installed:
+    
+        npm install -g yo generator-liferay-bundle
 
-2.  Overwrite the existing `app.component.html` file in the generated bundle's 
+2.  Generate a bundle with the 
+    [Yeoman]() 
+    generator and select Angular:
+
+        yo liferay-bundle
+
+3.  Overwrite the existing `app.component.html` file in the generated bundle's 
     `assets/app/` folder with your app's `app.component.html`. Copy any other 
     HTML templates you have over to the `assets/app/` folder as well.
 
-3.  Copy all folders and `.ts` files from the `app/` folder over to the 
+4.  Copy all folders and `.ts` files from the `app/` folder over to the 
     generated bundle's `src/app` folder, making sure to overwrite existing files 
     when prompted.
         
-4.  Update any relative paths for `templateUrl`s to use the generated portlet's 
+5.  Update any relative paths for `templateUrl`s to use the generated portlet's 
     web context path, specified in the portlet's `.npmbundlerrc` file. An 
     example configuration is shown below:
 
