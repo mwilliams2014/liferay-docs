@@ -6,121 +6,137 @@ header-id: understanding-ui-concepts
 
 [TOC levels=1-4]
 
-You most likely have established workflows, tools, and frameworks that you rely
-on to develop your UI. You can carry your toolset with you over to @product@. To
-ensure that your transition is as smooth as possible, @product@ provides
-first-class integration with these key frameworks: 
-[React](/docs/7-2/appdev/-/knowledge_base/a/developing-a-react-application), 
+The page's UI is comprised of three key pieces: The theme, the content, and the 
+Applications on the page. See [Understanding the Page Layout](/docs/7-2/frameworks/-/knowledge_base/f/understanding-the-page-layout) 
+for more information on how the page is composed. You can of course use your own 
+tools to build your UI if you wish, but Liferay provides a fully-featured 
+toolset designed for use with @product@ and built with the developer in mind. 
+Each key piece of the UI, along with the available tools, is explained below. 
+
+### The Theme
+
+The theme is responsible for defining the overall look and feel of the site, 
+it's pages, navigation, header, footer, etc. Themes are primarily built with 
+[FreeMarker](https://freemarker.apache.org/) templates, [SASS](https://sass-lang.com/), 
+and JavaScript. 
+
+FreeMarker templates are a combination of standard HTML markup and FreeMarker 
+syntax. This lets you use variables and [macros](https://freemarker.apache.org/docs/ref_directive_macro.html) 
+in your themes, including [@product@'s default set](https://portal.liferay.dev/docs/7-2/reference/-/knowledge_base/r/product-freemarker-macros) 
+which gives you access to common java objects, [taglibs](https://portal.liferay.dev/docs/7-2/reference/-/knowledge_base/r/freemarker-taglib-macros), 
+theme resources, and even applications that you can include in your theme---you 
+can extend this further by [injecting your own Java objects](/docs/7-2/frameworks/-/knowledge_base/f/injecting-additional-context-variables-and-functionality-into-your-theme) 
+into the FreeMarker template's context. You can also [create theme settings](theme settings) 
+to give an administrator control from within the @product@ instance to disable, 
+enable, or define values for specific UI elements. You can 
+[create color schemes](/docs/7-2/frameworks/-/knowledge_base/f/making-configurable-theme-settings) 
+for the theme as well, if the occasion calls for it. @product@'s 
+[base set of theme templates](/docs/7-2/reference/-/knowledge_base/r/theme-reference-guide) 
+cover different functions and features of the page, from the main markup to the 
+navigation markup, portlet markup, and custom variables you want to use. 
+Modularizing the theme templates this way provides a separation of concerns that 
+lets you focus on each aspect of the theme individually. 
+
+Themes are integrated with SASS, so you can use variables, as well as SASS 
+syntactic features, such as nesting, in your CSS files. Liferay provides its own 
+toolkit called [Clay](https://clayui.com/), which is built on Bootstrap, so you 
+can use Bootstrap utilities as well. Clay fills the front-end gaps between 
+Bootstrap and the needs of @product@, adding additional components that you can 
+use to build UI in your themes and applications, such as Nameplates and 
+Timelines, and providing helpful CSS patterns to save you time, such as 
+truncating text and nested vertical navigations. 
+
+![Figure 1: Clay is based on the rules of Lexicon and built on the foundation of Bootstrap.](../../images/architecture-ui-clay.png)
+
+While the base FreeMarker template (the index) provides the main look for all 
+pages, unless a [different theme or configuration](/docs/7-2/user/-/knowledge_base/u/individual-page-settings#look-and-feel) 
+is defined for the page, the pages for the site are 
+[created inside @product@'s configuration](/docs/7-2/user/-/knowledge_base/u/creating-and-managing-pages). 
+Other aspects of the look and feel for the site are also defined within 
+@product@. The logo and site title (if displayed) are modified through the 
+[theme's configuration](/docs/7-2/user/-/knowledge_base/u/page-set-look-and-feel). 
+You can also include additional CSS and JavaScript through this configuration 
+menu to load after the theme is loaded. 
+
+There are a couple mechanisms you can use to extend themes. You can install 
+modular pieces of UI (CSS and JS) into your theme, called [Themelets](/docs/7-2/reference/-/knowledge_base/r/creating-themelets-with-the-themes-generator), 
+that can then be reused in other themes, or you can deploy independent UI 
+resources, called [Theme Contributors](/docs/7-2/frameworks/-/knowledge_base/f/packaging-independent-ui-resources-for-your-site), 
+that affect every page regardless of the theme, such as the [Product Navigation](/docs/7-2/frameworks/-/knowledge_base/f/understanding-the-page-layout#product-navigation-sidebars-and-panels) 
+that is visible on every page. The Product Navigation UI itself can be 
+[customized](/docs/7-2/customization/-/knowledge_base/c/product-navigation) if 
+you want it to match the look and feel of your theme. 
+
+Liferay provides their own [Liferay Themes JS Toolkit](https://github.com/liferay/liferay-js-themes-toolkit) 
+that you can use to develop themes, but you may use your own tools if you 
+prefer. The Liferay Themes JS Toolkit contains everything you need to provide a 
+custom look and feel for your site's pages. You can [generate themes](/docs/7-2/reference/-/knowledge_base/r/theme-generator) 
+(fully integrated with npm, so you can use all your favorite npm packages), 
+[create layouts](/docs/7-2/reference/-/knowledge_base/r/creating-layout-templates-with-the-themes-generator) 
+to specify how your elements can be arranged on the page, and create [Themelets](/docs/7-2/reference/-/knowledge_base/r/creating-themelets-with-the-themes-generator) 
+that you can reuse in your themes and share with other developers. 
+
+![Figure 2: The Liferay Themes JS Toolkit creates themes that are integrated with npm and gulp.](../../images/architecture-ui-theme-gen.png)
+
+For more information on the components of a theme see [Theme Components](/docs/7-2/frameworks/-/knowledge_base/f/theme-components).
+
+## The Applications
+
+Applications (sometimes referred to as Portlets or Widgets) in @product@ are 
+Java-based, and you can use java-based tooling, such as [Blade CLI](/docs/7-2/reference/-/knowledge_base/r/blade-cli), 
+taglibs, and [JSPs to create them](/docs/7-2/appdev/-/knowledge_base/a/configuring-the-view-layer) 
+if you prefer, but @product@ provides Front-End tools that you can use to build 
+widgets as well. The [Liferay JS Toolkit](/docs/7-2/reference/-/knowledge_base/r/js-generator) 
+abstracts the Java code for you and [creates JavaScript-based portlets](/docs/7-2/frameworks/-/knowledge_base/f/creating-and-bundling-javascript-widgets-with-javascript-tooling) 
+with [pure JavaScript tooling](/docs/7-2/reference/-/knowledge_base/r/js-generator). 
+No knowledge of Java is required. You can specify System Settings, provide 
+language keys, and take advantage of automatic translation features for 
+localization. @product@ provides first-class integration with [React](/docs/7-2/appdev/-/knowledge_base/a/developing-a-react-application), 
 [Angular](/docs/7-2/appdev/-/knowledge_base/a/developing-an-angular-application), 
-and [Vue.js](/docs/7-2/appdev/-/knowledge_base/a/developing-a-vue-application). 
-Liferay also provides our own tools to increase your productivity while 
-developing for @product@. If you don't have an established workflow, we have 
-you covered, from design principles to the CSS framework. 
+and [Vue.js](/docs/7-2/appdev/-/knowledge_base/a/developing-a-vue-application), 
+so you can use the most popular frameworks to build your widget's UI. You can 
+also use Liferay's Clay components to create elegant solutions to common UI 
+problems, from a simple button to a complex management toolbar composed of 
+multiple menu variations, buttons, tabs, tables, and more. 
 
-## Design Philosophy
+![Figure 3: The Liferay JS Toolkit creates portlets with pure JS tooling.](../../images/architecture-ui-liferay-js.png)
 
-Liferay takes the [Atomic Design](http://atomicdesign.bradfrost.com/) approach 
-to interface design, making it possible to create a cohesive system, built of 
-modular components, that can respond to the various needs of the user. By doing 
-so, we increase productivity, reduce production cost, and create a consistent
-user experience across the board. This approach is the basis for their Design
-Experience Language: [Lexicon](https://liferay.design/lexicon/). 
+You can individually style a widget's UI through the app's code of course, but 
+you can also use a [Widget Template](/docs/7-2/user/-/knowledge_base/u/styling-widgets-with-widget-templates), 
+or you can customize its navigation UI using the [Screen Navigation Framework](/docs/7-2/frameworks/-/knowledge_base/f/screen-navigation-framework), 
+or you can even style the widget from within its configuration menu in 
+@product@. You can customize the exterior wrappers of widgets (the portlet 
+header, footer, border, etc.) with [Application Decorators](/docs/7-2/frameworks/-/knowledge_base/f/theming-portlets#portlet-decorators). 
+If you want to customize the look and feel for all widgets, you can modify the 
+[portlet theme template](/docs/7-2/frameworks/-/knowledge_base/f/theming-portlets) 
+directly. 
 
-## Lexicon
+While most widgets are meant for the end-user, some widgets can only be 
+accessed with the proper credentials, through the Product Navigation. Note that 
+widget's are manually positioned on the page within the bounds of the 
+[Layout defined for the page](/docs/7-2/frameworks/-/knowledge_base/f/layout-templates-intro). 
+Widget positions can also be predefined with [page templates](/docs/7-2/user/-/knowledge_base/u/creating-widget-pages-from-templates) 
+and [site templates](/docs/7-2/user/-/knowledge_base/u/creating-a-site-template). 
 
-Lexicon provides a common framework for building interfaces within the Liferay 
-product ecosystem. It provides foundations, components, patterns, and use cases 
-for creating consistent, cohesive, user-friendly user interfaces. It defines the
-guidelines for everything from the base unit grid on which an element's
-dimensions are designed to the design of the forms users use when choosing
-a screen name and entering their email addresses. It is the common thread woven
-throughout the entire UI. 
+## The Content
 
-![Figure 1: The base grid is the main structural pattern that underlies the construction and positioning of all system components.](../../images/lexicon-grid-01.png)
+Some of your pages, or perhaps all of them, will most likely be content-driven. 
+While you can define the page's content in the theme, @product@'s Content 
+Management System (CMS) provides inline editors and applications for creating, 
+displaying, and collaborating on content, such as web content articles, blogs, 
+the Asset Publisher, the Knowledge Base, Wikis, Message Boards and many more. 
+See the [User Guide]([User Guide](/docs/7-2/user) for more information on using 
+@product@'s CMS. ) for more information on using @product@'s CMS. 
 
-![Figure 2: UI elements are arranged within the grid. ](../../images/lexicon-grid-02-form.jpg)
+If you prefer to build UI components independent from a theme or its extensions 
+(Themelets and Theme Contributors), you can [use @product@'s inline editor](/docs/7-2/frameworks/-/knowledge_base/f/creating-fragments), 
+or your own [desktop tools along with the Liferay JS Toolkit CLI](/docs/7-2/frameworks/-/knowledge_base/f/page-fragments-desktop-tools) 
+if you prefer, to build [Page Fragments](https://portal.liferay.dev/docs/7-2/frameworks/-/knowledge_base/f/page-fragments). 
+Fragments are composed of HTML, CSS, and JS. Once you have a collection of 
+fragments, you can combine, arrange, and edit them on the fly to build multiple 
+page configurations. 
 
-![Figure 3: Lexicon's base grid provides the foundation for an element's dimensions.](../../images/lexicon-grid-03-form.jpg)
+![Figure 4: The Fragments editor lets you create independent pieces of code made of CSS, HTML, and JS that you can combine to build a page.](../../images/architecture-ui-fragments.png)
 
-## Clay
-
-The web implementation of Lexicon, used to build the standard 
-UI that you see throughout @product@, is called [Clay](https://clayui.com/docs/get-started/introduction.html). 
-Clay is modeled after Lexicon's pattern library, ensuring that your UI has 
-a consistent style and user experience when integrated with Liferay's 
-out-of-the-box applications. Clay is a fully featured library of modular 
-components, built on top of the world's most popular CSS framework: Bootstrap. 
-If you've used Bootstrap, Clay should look familiar. Clay fills the front-end
-gaps between Bootstrap and the needs of @product@, adding additional components,
-such as Nameplates and Timelines, and providing helpful CSS patterns to save you
-time, such as truncating text and nested vertical navigations. 
-
-![Figure 4: Clay is based on the rules of Lexicon and built on the foundation of Bootstrap.](../../images/architecture-ui-clay.png)
-
-Clay is implemented in various ways, depending on the needs of the developer:
-
-- Markup: Like Bootstrap, Clay is available as [HTML markup and CSS classes](https://clayui.com/docs/components/alerts.html).
-
-- Clay JS components: You can use Clay components in your JavaScript and JSX 
-  files. Note that you must [manually install the npm packages](https://clayui.com/docs/get-started/importing-the-js-component.html) 
-  to use them. All Clay components can be installed as a single npm package, or 
-  each component can be installed individually, depending on the developer's stack. 
-
-- Taglibs: Clay is [available as a set of taglibs](/docs/7-2/reference/-/knowledge_base/r/using-the-clay-taglib-in-your-portlets) 
-  that can be used to create user interfaces inside the JSPs of Java-based
-  portlets. These are also exposed as a set of macros that can be used in
-  FreeMarker theme templates and web content templates to create UI. 
-
-The true power of Clay lies in its flexibility. It can be used to create elegant 
-solutions to common UI problems, from a simple button to a complex management 
-toolbar, composed of multiple menu variations, buttons, tabs, tables, and more. 
-The Clay components are the building blocks that, if you choose, you can use to
-design your next masterpiece. 
-
-![Figure 5: Clay can create basic UI, such as buttons.](../../images/architecture-ui-clay-button.png)
-
-![Figure 6: Clay can create complex UI, composed of multiple UI components.](../../images/architecture-ui-clay-management-toolbar.png)
-
-## Tooling
-
-You can of course use your own tools to build your UI if you wish, but Liferay 
-provides a fully-featured toolset designed for use with @product@ and built with
-the developer in mind. Leverage our investments to save you time and increase
-your productivity during development. The tools are fully integrated with npm
-and yarn and run from the comfort of your CLI. 
-
-These tools are available:
-
-- Liferay JS Toolkit: While portlets are Java-based, the Liferay JS Toolkit 
-  abstracts this for you and [creates JavaScript-based portlets](/docs/7-2/reference/-/knowledge_base/r/js-generator) 
-  (Vanilla JS, Angular, React, Vue) with pure JavaScript tooling. No knowledge 
-  of Java is required. You can specify System Settings, provide language keys, 
-  and take advantage of automatic translation features. 
-
-  ![Figure 7: The Liferay JS Toolkit creates portlets with pure JS tooling.](../../images/architecture-ui-liferay-js.png)
-
-- Liferay Themes JS Toolkit: Contains everything you need to create themes to
-  provide a custom look and feel for your site's pages. You can [generate
-  themes](/docs/7-2/reference/-/knowledge_base/r/theme-generator) 
-  (fully integrated with npm, so you can use all your favorite npm packages), 
-  [create layouts](/docs/7-2/reference/-/knowledge_base/r/creating-layout-templates-with-the-themes-generator) 
-  to specify how your elements can be arranged on the page, and 
-  create modular code chunks, called [Themelets](/docs/7-2/reference/-/knowledge_base/r/creating-themelets-with-the-themes-generator), 
-  that you can reuse in your themes and share with other developers. 
-
-  ![Figure 8: The Liferay Themes JS Toolkit creates themes that are integrated with npm and gulp.](../../images/architecture-ui-theme-gen.png)
-
-- Fragments Editor: Do you prefer to develop and test your UI in an online 
-  editor? You can use Liferay's online editor to develop
-  *fragments*---standalone pieces of CSS, HTML and JS. Once you've 
-  [whipped up some fragments](https://portal.liferay.dev/docs/7-2/frameworks/-/knowledge_base/f/page-fragments)
-  that you're happy with, you can use them to build a content page on your site.
-  Combine and arrange them to create multiple page configuration options. The 
-  sky's the limit! 
-
-  ![Figure 9: The Fragments editor is a set of tools that let you create independent pieces of code made of CSS, HTML, and JS.](../../images/architecture-ui-fragments.png)
-
-Liferay provides the tools and freedom you need to create functional, 
-user-friendly, and well-designed UIs. How you choose to implement and combine these 
-tools---or whether you choose to use them at all---is up to you. The power is
-yours! 
+As you can see, @product@ provides multiple ways to create your site's UI, it 
+just depends on your needs and preferred workflow as to what approach you take. 
