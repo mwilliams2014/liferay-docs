@@ -23,15 +23,15 @@ and JavaScript.
 FreeMarker templates are a combination of standard HTML markup and FreeMarker 
 syntax. This lets you use variables and [macros](https://freemarker.apache.org/docs/ref_directive_macro.html) 
 in your themes, including [@product@'s default set](https://portal.liferay.dev/docs/7-2/reference/-/knowledge_base/r/product-freemarker-macros) 
-which gives you access to common java objects, [taglibs](https://portal.liferay.dev/docs/7-2/reference/-/knowledge_base/r/freemarker-taglib-macros), 
+which gives you access to common java objects, Java [taglibs](https://portal.liferay.dev/docs/7-2/reference/-/knowledge_base/r/freemarker-taglib-macros), 
 theme resources, and even applications that you can include in your theme---you 
 can extend this further by [injecting your own Java objects](/docs/7-2/frameworks/-/knowledge_base/f/injecting-additional-context-variables-and-functionality-into-your-theme) 
-into the FreeMarker template's context. You can also [create theme settings](theme settings) 
+into the FreeMarker template's context. You can also [create theme settings](/docs/7-2/frameworks/-/knowledge_base/f/making-configurable-theme-settings) 
 to give an administrator control from within the @product@ instance to disable, 
 enable, or define values for specific UI elements. You can 
 [create color schemes](/docs/7-2/frameworks/-/knowledge_base/f/making-configurable-theme-settings) 
 for the theme as well, if the occasion calls for it. @product@'s 
-[base set of theme templates](/docs/7-2/reference/-/knowledge_base/r/theme-reference-guide) 
+[default set of theme templates](/docs/7-2/reference/-/knowledge_base/r/theme-reference-guide) 
 cover different functions and features of the page, from the main markup to the 
 navigation markup, portlet markup, and custom variables you want to use. 
 Modularizing the theme templates this way provides a separation of concerns that 
@@ -48,13 +48,12 @@ truncating text and nested vertical navigations.
 
 ![Figure 1: Clay is based on the rules of Lexicon and built on the foundation of Bootstrap.](../../images/architecture-ui-clay.png)
 
-While the base FreeMarker template (the index) provides the main look for all 
-pages, unless a [different theme or configuration](/docs/7-2/user/-/knowledge_base/u/individual-page-settings#look-and-feel) 
-is defined for the page, the pages for the site are 
-[created inside @product@'s configuration](/docs/7-2/user/-/knowledge_base/u/creating-and-managing-pages). 
-Other aspects of the look and feel for the site are also defined within 
-@product@. The logo and site title (if displayed) are modified through the 
-[theme's configuration](/docs/7-2/user/-/knowledge_base/u/page-set-look-and-feel). 
+While the FreeMarker theme templates provide the main look for all pages, the 
+pages for the site are [created inside @product@'s configuration](/docs/7-2/user/-/knowledge_base/u/creating-and-managing-pages). 
+The navigation theme template, by default, dynamically grabs them and populates 
+the navigation. Other aspects of the look and feel for the site can also be 
+configured within @product@. The logo and site title (if displayed) are, by 
+default, modified through the [theme's configuration](/docs/7-2/user/-/knowledge_base/u/page-set-look-and-feel). 
 You can also include additional CSS and JavaScript through this configuration 
 menu to load after the theme is loaded. 
 
@@ -85,8 +84,9 @@ For more information on the components of a theme see [Theme Components](/docs/7
 Applications (sometimes referred to as Portlets or Widgets) in @product@ are 
 Java-based, and you can use java-based tooling, such as [Blade CLI](/docs/7-2/reference/-/knowledge_base/r/blade-cli), 
 taglibs, and [JSPs to create them](/docs/7-2/appdev/-/knowledge_base/a/configuring-the-view-layer) 
-if you prefer, but @product@ provides Front-End tools that you can use to build 
-widgets as well. The [Liferay JS Toolkit](/docs/7-2/reference/-/knowledge_base/r/js-generator) 
+if you prefer, but @product@ provides Front-End tools that you can use to 
+[build widgets](/docs/7-2/appdev/-/knowledge_base/a/web-front-ends) as well. The 
+[Liferay JS Toolkit](/docs/7-2/reference/-/knowledge_base/r/js-generator) 
 abstracts the Java code for you and [creates JavaScript-based portlets](/docs/7-2/frameworks/-/knowledge_base/f/creating-and-bundling-javascript-widgets-with-javascript-tooling) 
 with [pure JavaScript tooling](/docs/7-2/reference/-/knowledge_base/r/js-generator). 
 No knowledge of Java is required. You can specify System Settings, provide 
@@ -104,8 +104,8 @@ multiple menu variations, buttons, tabs, tables, and more.
 You can individually style a widget's UI through the app's code of course, but 
 you can also use a [Widget Template](/docs/7-2/user/-/knowledge_base/u/styling-widgets-with-widget-templates), 
 or you can customize its navigation UI using the [Screen Navigation Framework](/docs/7-2/frameworks/-/knowledge_base/f/screen-navigation-framework), 
-or you can even style the widget from within its configuration menu in 
-@product@. You can customize the exterior wrappers of widgets (the portlet 
+or you can even [style the widget from within its configuration menu](/docs/7-2/user/-/knowledge_base/u/look-and-feel-configuration) 
+in @product@. You can customize the exterior wrappers of widgets (the portlet 
 header, footer, border, etc.) with [Application Decorators](/docs/7-2/frameworks/-/knowledge_base/f/theming-portlets#portlet-decorators). 
 If you want to customize the look and feel for all widgets, you can modify the 
 [portlet theme template](/docs/7-2/frameworks/-/knowledge_base/f/theming-portlets) 
@@ -123,10 +123,10 @@ and [site templates](/docs/7-2/user/-/knowledge_base/u/creating-a-site-template)
 Some of your pages, or perhaps all of them, will most likely be content-driven. 
 While you can define the page's content in the theme, @product@'s Content 
 Management System (CMS) provides inline editors and applications for creating, 
-displaying, and collaborating on content, such as web content articles, blogs, 
-the Asset Publisher, the Knowledge Base, Wikis, Message Boards and many more. 
-See the [User Guide]([User Guide](/docs/7-2/user) for more information on using 
-@product@'s CMS. ) for more information on using @product@'s CMS. 
+displaying, and collaborating on content, such as web content articles, 
+Documents and Media, blogs, the Asset Publisher, the Knowledge Base, Wikis, 
+Message Boards and many more. See the [User Guide]([User Guide](/docs/7-2/user) 
+for more information on using @product@'s CMS. 
 
 If you prefer to build UI components independent from a theme or its extensions 
 (Themelets and Theme Contributors), you can [use @product@'s inline editor](/docs/7-2/frameworks/-/knowledge_base/f/creating-fragments), 
