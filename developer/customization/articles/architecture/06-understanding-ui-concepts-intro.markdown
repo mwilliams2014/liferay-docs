@@ -6,8 +6,18 @@ header-id: understanding-ui-concepts
 
 [TOC levels=1-4]
 
-The page's UI is comprised of three key pieces: The theme, the content, and the 
-Applications on the page. See [Understanding the Page Layout](/docs/7-2/frameworks/-/knowledge_base/f/understanding-the-page-layout) 
+The page's UI is comprised of three key pieces: 
+
+- **The Theme:** Defines the overall look and feel of the site, its pages, 
+  navigation, header, footer, etc.
+- **The Applications:**  Applications (sometimes referred to as widgets or 
+  portlets) that provide additional functionality on the page and each have 
+  their own UI.
+- **The Content:** Web Content Articles, Knowledge Base articles, Blogs, Assets, 
+  page fragments, or other content created with @product@'s Content Management 
+  System (CMS) that form the core content of the page.
+
+See [Understanding the Page Layout](/docs/7-2/frameworks/-/knowledge_base/f/understanding-the-page-layout) 
 for more information on how the page is composed. You can of course use your own 
 tools to build your UI if you wish, but Liferay provides a fully-featured 
 toolset designed for use with @product@ and built with the developer in mind. 
@@ -15,8 +25,7 @@ Each key piece of the UI, along with the available tools, is explained below.
 
 ### The Theme
 
-The theme is responsible for defining the overall look and feel of the site, 
-it's pages, navigation, header, footer, etc. Themes are primarily built with 
+Themes create the look and feel for the site and are primarily built with 
 [FreeMarker](https://freemarker.apache.org/) templates, [SASS](https://sass-lang.com/), 
 and JavaScript. 
 
@@ -46,7 +55,7 @@ use to build UI in your themes and applications, such as Nameplates and
 Timelines, and providing helpful CSS patterns to save you time, such as 
 truncating text and nested vertical navigations. 
 
-![Figure 1: Clay is based on the rules of Lexicon and built on the foundation of Bootstrap.](../../images/architecture-ui-clay.png)
+![Figure 1: Clay is built on the foundation of Bootstrap.](../../images/architecture-ui-clay.png)
 
 While the FreeMarker theme templates provide the main look for all pages, the 
 pages for the site are [created inside @product@'s configuration](/docs/7-2/user/-/knowledge_base/u/creating-and-managing-pages). 
