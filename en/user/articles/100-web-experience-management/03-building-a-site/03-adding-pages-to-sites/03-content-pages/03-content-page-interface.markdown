@@ -43,6 +43,7 @@ From top to bottom, the options are
 - [Sections](#sections)
 - [Section Builder](#section-builder)
 - [Widgets](#widgets)
+- [Contents](#contents)
 - [Page Structure](#page-structure)
 - [Look and Feel](#look-and-feel)
 
@@ -79,12 +80,33 @@ The main difference is that only the main configuration options for widgets on
 Content Pages. Various other configurations like *Look and Feel* are only 
 available for widgets on Widget Pages.
 
+### Contents
+
+The Contents section provides a list of the web content that's used on the page. 
+This includes content displayed in a widget and content mapped to content 
+fields. Click the *Contents* button (![Contents](../../../../../images/icon-contents.png)) 
+to open the Contents panel. From this section, you can perform these actions for 
+each piece of content used on the page:
+
+- *Edit:* Edit the web content 
+- *Permissions:* Update the web content's permissions
+- *View Usages:* See where the web content is used on the site
+
+Hover over the content in the list to highlight the widget(s), mapped content 
+fields, and fragments that use it on the page.
+
+![Figure 6: You can manage web content on a Content Page from the Contents panel.](../../../../../images/content-page-contents-panel.png)
+
+| **Note:** Web content that's displayed in an Asset Publisher with dynamic 
+| selection isn't listed in the Contents panel. You must manage this content 
+| directly from the Web Content admin app in the Control Panel.
+
 ### Page Structure
 
 Page Structure provides a high level view of every Fragment and every field
 within each Fragment on the page.
 
-![Figure 6: *Page Structure* shows you a hierarchy of your page.](../../../../../images/content-page-page-structure-editor.png)
+![Figure 7: *Page Structure* shows you a hierarchy of your page.](../../../../../images/content-page-page-structure-editor.png)
 
 Clicking on a field in Page Structure will  highlight it on the page. On large
 complicated page, this helps you keep on top  of where everything is and also
@@ -110,7 +132,7 @@ Comments are disabled by default, but administrators can enable them from
 on an instance-by-instance basis, navigate to the same setting in 
 *Instance Settings* (instead of System Settings). 
 
-![Figure 7: Administrators can enable comments for content pages.](../../../../../images/enable-content-page-comments.png)
+![Figure 8: Administrators can enable comments for content pages.](../../../../../images/enable-content-page-comments.png)
 
 If comments are enabled, you can access them via the *Comments* icon 
 (![Comments](../../../../../images/icon-comments.png)). 
@@ -128,7 +150,7 @@ If you de-select a fragment or enter the comments UI without a fragment selected
 a list of the fragments on the page appears with the number of comments for 
 each. Selecting a fragment then shows its comments. 
 
-![Figure 8: When creating content pages, you and your team can comment on any fragments.](../../../../../images/content-page-comments.png)
+![Figure 9: When creating content pages, you and your team can comment on any fragments.](../../../../../images/content-page-comments.png)
 
 ### The Title Bar
 
@@ -137,6 +159,6 @@ configuration, and the ability to search for other pages. The title bar is
 covered in more detail in 
 [Creating Pages](/docs/7-2/user/-/knowledge_base/u/creating-pages). 
 
-![Figure 9: The title bar has several tools built into it.](../../../../../images/content-page-edit-title-bar.png)
+![Figure 10: The title bar has several tools built into it.](../../../../../images/content-page-edit-title-bar.png)
 
 Great! Now you know how to use the content page interface!
