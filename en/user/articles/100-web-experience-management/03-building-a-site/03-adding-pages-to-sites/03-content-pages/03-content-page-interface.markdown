@@ -93,7 +93,7 @@ each piece of content used on the page:
 - *View Usages:* See where the web content is used on the site
 
 Hover over the content in the list to highlight the widget(s), mapped content 
-fields, and fragments that use it on the page.
+fields, and fragments that display the content on the page.
 
 ![Figure 6: You can manage web content on a Content Page from the Contents panel.](../../../../../images/content-page-contents-panel.png)
 

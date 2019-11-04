@@ -105,4 +105,5 @@ a collection.
 The Fragments are imported into the Collection. 
 
 Exporting and importing fragments is the preferred way to share code or bring it
-into your Site. 
+into your Site. Next, you'll learn how to create new web content from the inline 
+content you've added to a page.
