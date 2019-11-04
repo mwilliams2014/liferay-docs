@@ -6,7 +6,7 @@ header-id: fragment-configuration-types
 
 [TOC levels=1-4]
 
-There are four configurable Fragment types available to implement:
+There are five configurable Fragment types available to implement:
 
 - `checkbox`
 - `colorPalette`
@@ -89,32 +89,22 @@ If you were to choose the color white, the `h3` tag heading would have the class
 
 ## Item Selector Configuration
 
-The following JSON configuration creates a selector you can implement for cases
-where you must select an entity residing in your @product@ instance.
+The following JSON configuration creates a selector that lets you select one 
+existing piece of content (a web content article, blog entry, or document by 
+default) to include in the fragment.
 
 ```json
 {
-    "fieldSets": [
-        {
-            "fields": [
-                {
-                    "dataType": "object",
-                    "defaultValue": {
-                        "className": "com.liferay.journal.model.JournalArticle",
-                        "classNameId": "126820",
-                        "classPK": "126821"
-                    },
-                    "label": "Web Content",
-                    "name": "itemSelector1",
-                    "type": "itemSelector",
-                    "typeOptions": {
-                        "className": "com.liferay.journal.model.JournalArticle",
-                        "enableSelectTemplate": true
-                    }
-                }
-            ]
-        }
-    ]
+	"fieldSets": [{
+		"fields": [{
+			"label": "select-content",
+			"name": "itemSelector1",
+			"type": "itemSelector",
+			"typeOptions": {
+				"enableSelectTemplate": true
+			}
+		}]
+	}]
 }
 ```
 
@@ -124,12 +114,27 @@ The only *required* properties for this case are
 "name": "itemSelector1",
 "type": "itemSelector",
 "typeOptions": {
-    "className": "com.liferay.journal.model.JournalArticle"
+    "enableSelectTemplate": true
 }
 ```
 
-This example provides options to select existing web content articles to display
-in your Fragment.
+You can then render the content in your fragment with this snippet:
+
+```markup
+[#if configuration.itemSelector1.content??]
+     ${configuration.itemSelector1.content}
+[/#if]
+```
+
+You can also access the Java object in your fragment, if you need access to more 
+advanced features, under the key `[name-of-field]Object` (`itemSelector1Object` 
+in the example above):
+
+```markup
+[#if configuration.itemSelector1.content??]
+     ${itemSelector1Object.getContent()}
+[/#if]
+```
 
 ![Figure 3: The `itemSelector` configuration is useful when an option choice to display existing content is necessary.](../../../images/itemselector-fragment-config.png)
 

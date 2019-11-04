@@ -63,8 +63,10 @@ palette can be set by the Fragment developer.
 
 ### Section Builder
 
-In Section Builder, you start with *Layouts* and *Basic Components*. Add 
-Layouts to the page to provide a spaces where you can add Components.
+In Section Builder, you start with *Layouts* and *Basic Components*. Add Layouts 
+to the page to provide spaces where you can add Components. The 
+*Content Display* section lets you add the Content Display fragment to display 
+a single existing web content, blog entry, or document. 
 
 ![Figure 4: *Sections Builder* contains *Component* Fragments which are intended to be combined to create Sections.](../../../../../images/content-page-section-builder-editor.png)
 
