@@ -85,6 +85,9 @@ appears in the context and within the navigation of your Liferay instance.
 **Link to URL:** Creates a link to any URL. This could be an external page or
 a link across Sites in the same Liferay instance.
 
+After selecting a page type, when creating a page, a category selector is 
+displayed below the page Name field if a vocabulary is [required](/docs/7-2/user/-/knowledge_base/u/targeted-vocabularies).
+
 To the left, under Collections, you can choose to view the basic page types
 or a collection of page templates. By default, only *Global Templates*
 appears, but additional collections you create appear here as well.

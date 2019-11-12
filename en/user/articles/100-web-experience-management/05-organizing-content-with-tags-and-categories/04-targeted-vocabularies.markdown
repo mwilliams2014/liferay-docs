@@ -20,6 +20,12 @@ of the vocabulary to specific assets. In the screenshot above, notice that the
 vocabulary is configured to be available for Web Content articles and Blog
 entries, but it is not required. It is mandatory, however, for Bookmark entries.
 
+If a vocabulary is required for a Page when it's created, the associated 
+categories are made available in the category selector below the Name field, as 
+shown in the figure below:
+
+![Figure 2: The category selector is displayed below the page Name field if a vocabulary is required.](../../../images/required-vocab-page.png)
+
 ## Single and Multi-valued Vocabularies
 
 You can also decide if users can choose one or more categories from the same
@@ -27,7 +33,7 @@ vocabulary to apply to an asset. If a vocabulary is single-valued you can only
 choose one. If it allows more, you can choose several categories from the
 vocabulary to apply to an asset.
 
-![Figure 2: Multi-valued vocabularies allow multiple categories from the vocabulary to be applied to an asset. Single-valued vocabularies only allow one category from the vocabulary to be applied. Here, the *Dining* and *Nightlife* categories are selected to be applied but the *Scenic Adventures* category is not.](../../../images/multi-valued-vocabularies.png)
+![Figure 3: Multi-valued vocabularies allow multiple categories from the vocabulary to be applied to an asset. Single-valued vocabularies only allow one category from the vocabulary to be applied. Here, the *Dining* and *Nightlife* categories are selected to be applied but the *Scenic Adventures* category is not.](../../../images/multi-valued-vocabularies.png)
 
 You can configure the single-valued or multi-valued status of a vocabulary
 through the Categories application. Edit a vocabulary and deselect the *Allow
@@ -41,7 +47,7 @@ own separated entry. These entries appear in the Categorization section of the
 form for editing an asset, and they allow users to easily select appropriate
 categories for that asset.
 
-![Figure 3: Vocabularies have their own entries, making it easy to select available categories.](../../../images/separated-entries.png)
+![Figure 4: Vocabularies have their own entries, making it easy to select available categories.](../../../images/separated-entries.png)
 
 It's important to use tags and categories with all your content, so that content
 is easier for users to find. 
