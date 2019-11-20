@@ -92,6 +92,11 @@ each piece of content used on the page:
 - *Permissions:* Update the web content's permissions
 - *View Usages:* See where the web content is used on the site
 
+| **Note:** To edit inline content, you must have the "Update Page Content" 
+| permission assigned to your Role. By default this permission is included for 
+| the BLANK role. 
+<!--What Role is the permission included with by default?-->  
+
 Hover over the content in the list to highlight the widget(s), mapped content 
 fields, and fragments that display the content on the page.
 

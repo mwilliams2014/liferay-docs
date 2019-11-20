@@ -14,6 +14,13 @@ content, you can select the inline content and save it as new web content that
 you can reuse across multiple pages. To create new web content from inline 
 content, you must first select the content you want to include.
 
+| **Note:** To edit inline content, you must have the "Update Page Content" 
+| permission assigned to your Role. By default this permission is included for 
+| the BLANK role. 
+<!--What Role is the permission included with by default?-->  
+
+As a user with "Update Page Content" permission on a page I can edit its inline content
+
 1.  Select an inline content field, or select multiple content fields by 
     shift + clicking each content field.
 
