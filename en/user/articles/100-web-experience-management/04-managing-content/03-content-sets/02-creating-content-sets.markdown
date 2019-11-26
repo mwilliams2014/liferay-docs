@@ -71,8 +71,10 @@ With Dynamic Content Sets, you can choose the *Source*, *Scope*, *Filter*, and
 
 This will create a Content Set which will contain any items that are currently 
 tagged as *trending* and any future items with the *trending* tag will be added 
-to the Content Set automatically. The example above filters content by tags, but 
-you can also filter content by categories and keywords.
+to the Content Set automatically. 
+
+| **Note:** Since Liferay Portal CE 7.2 GA3 and 7.2 DXP Fix Pack 4, you can also 
+| filter content by categories and keywords.
 
 Now that you have your Content Sets created, you can
 [display them on a page](/docs/7-2/user/-/knowledge_base/u/displaying-content-sets).
