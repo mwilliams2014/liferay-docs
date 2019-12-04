@@ -6,8 +6,8 @@ header-id: creating-pages
 
 [TOC levels=1-4]
 
-After you create a Site, you can add new pages and maintain them. You can do
-everything you need with pages from Site Administration.
+After you create a Site, you can add new pages and maintain them. You can either 
+create pages from Site Administration or via the Pages Tree View (![Pages Tree View](../../../../images/icon-pages-tree-view.png)). 
 
 1.  If you're not currently on the Site you want to edit, click the *Site 
     Selector* button (![Compass](../../../../../images/icon-compass.png)) next to 

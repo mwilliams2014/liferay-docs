@@ -11,15 +11,54 @@ those pages in whatever order or structure that you see fit.
 
 ## Creating a Page
 
-New pages are created on the *Site Builder* &rarr; *Pages* page in Site 
-Administration. Pages can be created as *Public Pages* which anyone can view, 
-or *Private Pages* which can only be viewed by Site Members. To create a new 
-page,
+New pages are created through either Site Administration or through the Pages 
+Tree View menu. Pages can be created as *Public Pages* which anyone can view, or 
+*Private Pages* which can only be viewed by Site Members. 
+
+### Viewing and Creating Pages through the Pages Tree View
+
+The Pages Tree View provides quick access to the page navigation and gives an 
+overview of the page hierarchy. You can use the search bar to quickly find a 
+page by keyword, or click on a page in the hierarchy to navigate to it. You can 
+also click the *View in Page Administration* link to go to the Pages 
+Administration to manage the page further.
+
+![Figure 1: Use the search bar to quickly find a page.](../../../../images/pages-tree-view-search.png)
+
+To create a new page through the Pages Tree View,
+
+1.  Open the Product Menu and click the *Pages Tree View icon* (![Pages Tree View](../../../../images/icon-pages-tree-view.png)) next to the Site's name.
+
+    ![Figure 2: Access the Pages Tree View through the Product Menu.](../../../../images/pages-tree-view.png)
+
+    By default, only the *Home* and hidden *Search* pages exist in the public hierarchy.
+
+    ![Figure 3: In the default site, initially only the *Home* and the hidden *Search* pages exist in the Public Pages Hierarchy.](../../../../images/default-nav-pages-tree-view.png)
+
+2.  Click the Actions Menu next to the Page Set selector and select *Add Page*. 
+    You can also select the *Configure* option to configure the Page Set.
+
+    ![Figure 4: You can add a page from the tree view.](../../../../images/pages-tree-view-add-page.png)
+
+    You can also add a child page by opening the Actions Menu next to an 
+    existing page and selecting *Add Page*.
+
+    ![Figure 5: You can also add child pages from the tree view.](../../../../images/pages-tree-view-add-child-page.png)
+
+Now that the page is created, it appears in the hierarchy, and you can move or
+organize its position there. Expand nested pages in the hierarchy with the `+` 
+icon next to the parent page. Likewise, you can collapse nested pages with the 
+`-` icon next to the parent page. You can also collapse all pages at once by 
+clicking the *Collapse All* to the right of the page set selector.
+
+### Creating Pages through Site Administration
+
+To create a new page through the Site Administration,
 
 1.  Go to *Site Administration* for the Site you want to work on, then
     *Site Builder* &rarr; *Pages*.
 
-    ![Figure 1: In the default site, initially only the *Home* and the hidden *Search* pages exist in the Public Pages Hierarchy.](../../../../images/default-nav-pages.png)
+    ![Figure 6: In the default site, initially only the *Home* and the hidden *Search* pages exist in the Public Pages Hierarchy.](../../../../images/default-nav-pages.png)
 
 2.  Click *Add* (![Add Page](../../../../images/icon-add.png)) and select
     *Public Page*.
@@ -30,7 +69,7 @@ page,
 
 5.  Click *Save*.
 
-![Figure 2: When you create a page, by default it is added to the site hierarchy.](../../../../images/page-hierarchy-menu.png)
+![Figure 7: When you create a page, by default it is added to the site hierarchy.](../../../../images/page-hierarchy-menu.png)
 
 Now that the page is created, it appears in the hierarchy, and you can move or
 organize its position there.
@@ -46,25 +85,25 @@ automatically when visiting your Site.
     see the order of the pages matches the order of the pages from Site
     Administration.
 
-    ![Figure 3: You can see the order of pages in Site Administration vs. how they appear on the site.](../../../../images/navigation-practical1.png)
+    ![Figure 8: You can see the order of pages in Site Administration vs. how they appear on the site.](../../../../images/navigation-practical1.png)
 
 2.  Drag the *About Us* page above the *Welcome* page in the list. It
     automatically becomes the *Home* page.
 
 3.  Click *Go to Site* to see how this affects your menu.
 
-    ![Figure 4: *About Us* is now the home page, and *Welcome* is second in the nav.](../../../../images/navigation-practical2.png)
+    ![Figure 9: *About Us* is now the home page, and *Welcome* is second in the nav.](../../../../images/navigation-practical2.png)
 
 4.  Drag *About Us* on top of *Welcome* to nest it. 
 
 5.  Click *Go to Site* one more time to see how nested pages appear.
 
-![Figure 5: *About Us* is now nested under *Welcome* and appear when you mouse-over *Welcome*.](../../../../images/navigation-practical3.png)
+![Figure 10: *About Us* is now nested under *Welcome* and appear when you mouse-over *Welcome*.](../../../../images/navigation-practical3.png)
 
 As you've just demonstrated, organizing pages in the default menu is simple, 
 but very powerful.
 
-### Public and Private Pages
+## Public and Private Pages
 
 As noted above, Private Pages work just like Public Pages, except they can be
 viewed only by registered members of a Site. In the default configuration,
@@ -74,8 +113,8 @@ distinctions, Public and Private Pages share the same behavior.
 
 ## Page Options
 
-While managing the default menu, you can also access page options. Clicking on
-the *Options* icon [Option](../../../../images/icon-options.png) 
+While managing the default menu, you can also access page options through the 
+Site Administration. Clicking on the *Options* icon [Option](../../../../images/icon-options.png) 
 accesses several configuration tools:
 
 **View** goes to the selected page on the Site.
