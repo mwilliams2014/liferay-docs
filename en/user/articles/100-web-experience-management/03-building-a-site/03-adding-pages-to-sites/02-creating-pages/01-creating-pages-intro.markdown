@@ -1,13 +1,16 @@
 ---
 header-id: creating-pages
 ---
-
+<!--
+TODO: COMPASS ICON HAS BEEN REPLACED WITH SWITCH ICON IN SITE MENU IN 7.3. NEED TO UPDATE ICON SCREENSHOT
+AND ALL OCCURANCES OF COMPASS ICON WITH SWITCH ICON
+-->
 # Creating Pages
 
 [TOC levels=1-4]
 
 After you create a Site, you can add new pages and maintain them. You can either 
-create pages from Site Administration or via the Pages Tree View (![Pages Tree View](../../../../images/icon-pages-tree-view.png)). 
+create pages from Page Administration or via the Page Tree View (![Page Tree View](../../../../images/icon-pages-tree-view.png)).
 
 1.  If you're not currently on the Site you want to edit, click the *Site 
     Selector* button (![Compass](../../../../../images/icon-compass.png)) next to 
@@ -15,11 +18,13 @@ create pages from Site Administration or via the Pages Tree View (![Pages Tree V
 
 2.  Go to *Site Administration* &rarr; *Site Builder*.
 
-3.  Click on *Pages*
+3.  Click on *Pages* to go to Page Administration or click the (![Page Tree View](../../../../images/icon-pages-tree-view.png)) 
+    icon next to the Site's name to open the Page Tree View.
  
 ![Figure 1: The Pages screen lets you edit your Site pages as a whole.](../../../../../images/managing-site-pages.png)
 
-From here, you'll create pages and page templates.
+From Page Administration and Page Tree View, you can create pages and page 
+templates. 
 
 | **Note:** Pages are always part of page sets, and page sets are always associated
 | with Sites. Even users' personal pages are part of their personal Sites. All
@@ -29,7 +34,7 @@ From here, you'll create pages and page templates.
 | pages. This means the private pages of an organization's Site are viewable only
 | by Site members and members of the organization.
 
-From *Pages* you can do several things:
+From Page Administration you can do several things:
 
 1.  Click the (![Compass](../../../../../images/icon-add.png)) button in the top
     right corner to add a new page.
@@ -39,6 +44,18 @@ From *Pages* you can do several things:
 3.  Create child pages by clicking the `+` button next to an existing page.
 
 ![Figure 2: Understanding the options on Site Pages.](../../../../../images/site-pages-breakdown.png)
+
+Likewise, you can do several thing from the Page Tree View:
+
+1.  Open the Actions Menu next to a page or Page Set to add or configure a page 
+    or Page Set.
+    
+2.  Create child pages by selecting the *Add Page* action for an existing page.
+
+3.  Use the search bar to quickly find a page.
+
+4.  click the *View in Page Administration* link to go to the Page 
+    Administration to manage the page further.
 
 Adding a child page creates child pages in the hierarchy below the page you've 
 selected. You can nest pages as deep as you like.
@@ -53,9 +70,9 @@ selected. You can nest pages as deep as you like.
 | [Friendly URL](/docs/7-2/user/-/knowledge_base/u/individual-page-settings#name-and-friendly-url)
 | configuration section.
 
-Once you've clicked the `+` icon to add a page, you're asked to select the type
-of page you are creating. There are two top options followed by other page 
-types:
+Once you've clicked the `+` icon to add a page or selected the *Add Page* option 
+from the Page Tree View, you're asked to select the type of page you are 
+creating. There are two top options followed by other page types:
 
 **Widget:** Creates a page with a layout template that defines a number of rows
 and columns for adding widgets to your page.
@@ -104,9 +121,9 @@ Administration in the Menu, select the compass icon next to the current Site
 name, and select the Site you wish to edit.
 
 If you must ever modify the page you've created for your Site, select
-*Configure* from the Options menu for the page from *Pages*. When
-configuring a specific page, you have more options than when you were creating
-a new page. You can also read 
+*Configure* from either the Options menu for the page from *Pages* or in the 
+Page Tree View. When configuring a specific page, you have more options than 
+when you were creating a new page. You can also read 
 [Configuring Sites](/docs/7-2/user/-/knowledge_base/u/configuring-sites).
 
 There are also configuration options that are only available for individual

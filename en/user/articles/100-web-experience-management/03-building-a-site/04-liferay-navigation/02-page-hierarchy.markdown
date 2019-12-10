@@ -11,13 +11,13 @@ those pages in whatever order or structure that you see fit.
 
 ## Creating a Page
 
-New pages are created through either Site Administration or through the Pages 
-Tree View menu. Pages can be created as *Public Pages* which anyone can view, or 
+New pages are created through either Site Administration or through the Page 
+Tree View. Pages can be created as *Public Pages* which anyone can view, or 
 *Private Pages* which can only be viewed by Site Members. 
 
-### Viewing and Creating Pages through the Pages Tree View
+### Viewing and Creating Pages through the Page Tree View
 
-The Pages Tree View provides quick access to the page navigation and gives an 
+The Page Tree View provides quick access to the page navigation and gives an 
 overview of the page hierarchy. You can use the search bar to quickly find a 
 page by keyword, or click on a page in the hierarchy to navigate to it. You can 
 also click the *View in Page Administration* link to go to the Pages 
@@ -25,11 +25,11 @@ Administration to manage the page further.
 
 ![Figure 1: Use the search bar to quickly find a page.](../../../../images/pages-tree-view-search.png)
 
-To create a new page through the Pages Tree View,
+To create a new page through the Page Tree View,
 
-1.  Open the Product Menu and click the *Pages Tree View icon* (![Pages Tree View](../../../../images/icon-pages-tree-view.png)) next to the Site's name.
+1.  Open the Product Menu and click the *Page Tree View* (![Page Tree View](../../../../images/icon-pages-tree-view.png)) icon next to the Site's name.
 
-    ![Figure 2: Access the Pages Tree View through the Product Menu.](../../../../images/pages-tree-view.png)
+    ![Figure 2: Access the Page Tree View through the Product Menu.](../../../../images/pages-tree-view.png)
 
     By default, only the *Home* and hidden *Search* pages exist in the public hierarchy.
 
@@ -53,7 +53,7 @@ clicking the *Collapse All* to the right of the page set selector.
 
 ### Creating Pages through Site Administration
 
-To create a new page through the Site Administration,
+To create a new page through the Page Administration,
 
 1.  Go to *Site Administration* for the Site you want to work on, then
     *Site Builder* &rarr; *Pages*.
@@ -78,25 +78,26 @@ organize its position there.
 
 Drag and drop pages to reorder their position in the page hierarchy (and
 subsequently the default navigation that users see), and to nest them as
-subpages. The page at the top of the list is the *Home* page that users see
+subpages. This can be done through both the Pages Administration and the Page 
+Tree View. The page at the top of the list is the *Home* page that users see
 automatically when visiting your Site. 
 
 1.  Click *Go to Site* to view the organization of the navigation menu. You can
-    see the order of the pages matches the order of the pages from Site
-    Administration.
+    see the order of the pages matches the order of the pages in the hierarchy.
 
     ![Figure 8: You can see the order of pages in Site Administration vs. how they appear on the site.](../../../../images/navigation-practical1.png)
 
-2.  Drag the *About Us* page above the *Welcome* page in the list. It
-    automatically becomes the *Home* page.
+2.  Drag a page above an existing page to place it higher in the hierarchy, or 
+    drag it on top of a page to nest it as a child page.
 
-3.  Click *Go to Site* to see how this affects your menu.
+3.  Click *Go to Site* to see how this affects your menu. The example in the 
+    figure below moves the *About Us* page above the *Welcome* page in the list, 
+    making it the *Home* page.
 
     ![Figure 9: *About Us* is now the home page, and *Welcome* is second in the nav.](../../../../images/navigation-practical2.png)
 
-4.  Drag *About Us* on top of *Welcome* to nest it. 
-
-5.  Click *Go to Site* one more time to see how nested pages appear.
+    The example in this figure nest the *About Us* page underneath the *Welcome* 
+    page. 
 
 ![Figure 10: *About Us* is now nested under *Welcome* and appear when you mouse-over *Welcome*.](../../../../images/navigation-practical3.png)
 
