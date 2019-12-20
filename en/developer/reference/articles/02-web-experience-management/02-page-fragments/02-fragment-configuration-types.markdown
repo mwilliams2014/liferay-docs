@@ -108,32 +108,81 @@ default) to include in the fragment.
 }
 ```
 
-The only *required* properties for this case are
+You can provide a more advanced configuration that lets authors select only a specific type of content. The configuration below specifies that only web content articles can be selected. The optional `itemSubtype` property specfies that the selected web content article must use the structure `article-structure-key-15` to be selected:
 
 ```json
-"name": "itemSelector1",
-"type": "itemSelector",
-"typeOptions": {
-    "enableSelectTemplate": true
+{
+	"fieldSets": [{
+		"fields": [{
+			"label": "select-content",
+			"name": "itemSelector1",
+			"type": "itemSelector",
+			"typeOptions": {
+        "itemType" : "com.liferay.journal.model.JournalArticle",
+        "itemSubtype": "article-structure-key-15"
+			}
+		}]
+	}]
 }
 ```
 
-You can then render the content in your fragment with this snippet:
+This example specifies that only a document with the `img` or `jpg` MIME type that uses the structure `metadataset-structure-key-2` can be selected:
 
-```markup
-[#if configuration.itemSelector1.content??]
-     ${configuration.itemSelector1.content}
-[/#if]
+```json
+{
+	"fieldSets": [{
+		"fields": [{
+			"label": "select-content",
+			"name": "itemSelector1",
+			"type": "itemSelector",
+			"typeOptions": {
+        "itemType" : "com.liferay.portal.kernel.repository.model.FileEntry",
+        "itemSubtype": "metadataset-structure-key-2",
+        "mimeTypes": ["img/jpg"]
+			}
+		}]
+	}]
+}
 ```
 
-You can also access the Java object in your fragment, if you need access to more 
-advanced features, under the key `[name-of-field]Object` (`itemSelector1Object` 
-in the example above):
+This example specifies that only blog entries can be selected:
+
+```json
+{
+	"fieldSets": [{
+		"fields": [{
+			"label": "select-content",
+			"name": "itemSelector1",
+			"type": "itemSelector",
+			"typeOptions": {
+        "itemType" : "com.liferay.blogs.model.BlogsEntry",
+			}
+		}]
+	}]
+}
+```
+
+You can then render the content in your fragment with this HTML snippet for the web content article:
 
 ```markup
-[#if configuration.itemSelector1.content??]
-     ${itemSelector1Object.getContent()}
-[/#if]
+<div class="fragment_name">
+  [#if configuration.itemSelector1.content??]
+       ${configuration.itemSelector1.content}
+  [/#if]
+</div>
+```
+
+You can also access the Java object in your fragment, if you need access to specific portions of the content, under the key `[name-of-field]Object` (`itemSelector1Object` 
+in the example below). This example renders the title, description, and body of the web content article:
+
+```markup
+<div class="fragment_name">
+  [#if configuration.itemSelector1.content??]
+    ${itemSelector1Object.getTitle()}
+    ${itemSelector1Object.getDescription()}
+    ${itemSelector1Object.getContent()?html}
+  [/#if]
+</div>
 ```
 
 ![Figure 3: The `itemSelector` configuration is useful when an option choice to display existing content is necessary.](../../../images/itemselector-fragment-config.png)

@@ -24,5 +24,4 @@ make your custom content type available for selection, follow these steps:
 4.  Open the fragment's configuration and click the *Add button* to select your 
     custom content.
 
-Great! Now you know how to make your custom content type available to the 
-fragment's itemSelector configuration.
+Great! Now you know how to make your custom content type available for selection in the fragment's content selector and `itemSelector` configuration.
