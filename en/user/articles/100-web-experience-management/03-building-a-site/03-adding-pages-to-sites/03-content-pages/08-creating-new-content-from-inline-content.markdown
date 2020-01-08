@@ -11,15 +11,13 @@ or an Asset Publisher, or you can create inline content on a Content Page. While
 the latter option is generally faster, you may find that you want to reuse the 
 inline content you've created on another page. Rather than recreating that 
 content, you can select the inline content and save it as new web content that 
-you can reuse across multiple pages. To create new web content from inline 
-content, you must first select the content you want to include.
+you can reuse across multiple pages.
 
-| **Note:** To edit inline content, you must have the "Update Page Content" 
-| permission assigned to your Role. By default this permission is included for 
-| the BLANK role. 
-<!--What Role is the permission included with by default?-->  
+| **Note:** To edit inline content, you must have the "Edit Inline Content" 
+| permission assigned to your Role. 
 
-As a user with "Update Page Content" permission on a page I can edit its inline content
+To create new web content from inline content, you must first select the content 
+you want to include. Follow these steps:
 
 1.  Select an inline content field, or select multiple content fields by 
     shift + clicking each content field.
