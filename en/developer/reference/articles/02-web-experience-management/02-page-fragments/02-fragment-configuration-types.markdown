@@ -108,7 +108,7 @@ default) to include in the fragment.
 }
 ```
 
-You can provide a more advanced configuration that lets authors select only a specific type of content. The configuration below specifies that only web content articles can be selected. The optional `itemSubtype` property specfies that the selected web content article must use the structure `article-structure-key-15` to be selected:
+You can provide a more advanced configuration that lets authors select only a specific type of content. The configuration below specifies that only web content articles can be selected. The optional `itemSubtype` property specifies that the selected web content article must use the structure `article-structure-key-15` to be selected:
 
 ```json
 {
@@ -180,7 +180,7 @@ in the example below). This example renders the title, description, and body of 
   [#if configuration.itemSelector1.content??]
     ${itemSelector1Object.getTitle()}
     ${itemSelector1Object.getDescription()}
-    ${itemSelector1Object.getContent()?html}
+    ${itemSelector1Object.getContent()}
   [/#if]
 </div>
 ```
