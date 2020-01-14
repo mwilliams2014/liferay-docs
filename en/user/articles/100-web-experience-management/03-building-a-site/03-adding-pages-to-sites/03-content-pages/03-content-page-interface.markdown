@@ -93,7 +93,10 @@ each piece of content used on the page:
 - *View Usages:* See where the web content is used on the site
 
 | **Note:** To edit inline content, you must have the "Edit Inline Content" 
-| permission assigned to your Role. 
+| permission assigned to your Role. However, if you don't have permission to 
+| edit the page, you can still edit content (web content, blog, etc.) that you 
+| have permission to edit that's displayed through one of these methods: mapped 
+| content, web content display, or an Asset Publisher (with manual selection).  
 
 Hover over the content in the list to highlight the widget(s), mapped content 
 fields, and fragments that display the content on the page.
